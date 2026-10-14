@@ -3,48 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
-  <title>DDIA Interactive Notes - Interview Prep</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#f7f3ea">
+  <meta name="description" content="Interactive, visual notes for Designing Data-Intensive Applications: deep dives, playable visualizations, cheat sheets, interview Q&A and flashcards.">
+  <title>DDIA Interactive Notes</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23b8321b'/%3E%3Ctext x='16' y='23.5' font-family='Georgia,serif' font-weight='700' font-size='21' text-anchor='middle' fill='%23f7f3ea'%3ED%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <script>
+    // Looks (skins). The one list of looks for the whole app (app.js reads DDIA_LOOKS too):
+    // skins/<name>.css restyles the site; "classic" is styles.css alone. ?skin=<name> previews a
+    // look; the Look menu saves the reader's choice. Applied here, before first paint.
+    window.DDIA_LOOKS = {
+      default: "editorial",
+      list: ["editorial", "blueprint", "brutalist", "terminal", "classic"],
+      // Google Fonts per look, loaded without blocking rendering (system fonts until they arrive).
+      fonts: {
+        editorial: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap",
+        blueprint: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+        brutalist: "https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100,400;0,100,600;0,100,700;0,100,800;0,125,800;0,125,900;1,100,400&family=IBM+Plex+Mono:wght@400;500;700&display=swap",
+        terminal: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      }
+    };
+    (function () {
+      try {
+        var L = window.DDIA_LOOKS;
+        var q = location.search.match(/[?&]skin=([a-z0-9-]+)/);
+        var skin = q ? q[1] : localStorage.getItem("ddia_skin");
+        if (L.list.indexOf(skin) < 0) skin = L.default; // never write an unknown value into the page
+        // Asset version (?v=N) comes from the styles.css link, the single place it's set.
+        var v = (document.querySelector('link[href^="styles.css"]').getAttribute("href").match(/\?v=[\w.-]+/) || [""])[0];
+        if (skin !== "classic") {
+          document.documentElement.setAttribute("data-skin", skin);
+          document.write('<link rel="stylesheet" id="skinCss" href="skins/' + skin + '.css' + v + '">');
+          if (L.fonts[skin]) document.write('<link rel="stylesheet" id="skinFonts" media="print" onload="this.media=\'all\'" href="' + L.fonts[skin] + '">');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
-  <!-- Top bar -->
-  <header class="topbar">
-    <button class="menu-toggle" id="menuToggle" aria-label="Open chapters menu" title="Chapters">☰</button>
+  <a class="skip-link" href="#main" id="skipLink">Skip to content</a>
+  <div class="read-bar" id="readBar" aria-hidden="true"></div>
 
-    <div class="brand">
+  <!-- Top bar -->
+  <header class="topbar" id="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open chapters menu" aria-controls="sidebar" aria-expanded="false" title="Chapters">☰</button>
+
+    <a class="brand" href="#/">
       <div class="logo">D</div>
       DDIA Notes
-      <span class="brand-sub">Interactive interview prep</span>
-    </div>
+      <span class="brand-sub">Interactive · Visual · Interview-ready</span>
+    </a>
 
     <div class="topbar-spacer"></div>
 
-    <div class="progress-pill" title="Overall progress across all chapters">
+    <div class="progress-pill" title="Overall progress across all chapters" aria-label="Overall progress">
       <span id="overallProgressText">0%</span>
       <div class="progress-pill-bar"><div class="progress-pill-fill" id="overallProgressFill" style="width:0%"></div></div>
     </div>
 
-    <div class="search-wrap">
-      <input type="text" class="search-box" id="searchBox" placeholder="Search concepts, questions… (press /)" />
-      <div class="search-results" id="searchResults"></div>
+    <!-- Phone-only: opens the search row below the bar -->
+    <button class="search-toggle" id="searchToggle" aria-label="Search" aria-controls="searchBox" aria-expanded="false" title="Search (/)">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 L21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="search-wrap" id="searchWrap" role="search">
+      <input type="search" class="search-box" id="searchBox" placeholder="Search the notes…" aria-label="Search the notes" autocomplete="off" spellcheck="false" aria-controls="searchResults" />
+      <kbd class="search-kbd" aria-hidden="true">/</kbd>
+      <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
     </div>
 
     <button class="iconbtn" id="exportBtn" title="Export your progress to a file (so you can import it on another device)">⬇ Export</button>
     <button class="iconbtn" id="importBtn" title="Import progress from a file">⬆ Import</button>
     <input type="file" id="importFile" accept="application/json,.json" style="display:none" />
-    <button class="iconbtn" id="themeToggle" title="Toggle theme">Light</button>
+    <button class="iconbtn" id="themeToggle" title="Toggle theme">☀ Light</button>
+    <div class="look-wrap" id="lookWrap">
+      <button class="iconbtn" id="lookToggle" aria-haspopup="true" aria-expanded="false" aria-controls="lookMenu" title="Change the look of the site">◐ Look</button>
+      <div class="look-menu" id="lookMenu" role="menu" aria-label="Look"></div>
+    </div>
     <button class="iconbtn" id="resetBtn" title="Reset all progress">Reset</button>
 
     <!-- Mobile-only overflow menu -->
     <div class="more-wrap">
-      <button class="more-toggle" id="moreToggle" aria-label="More actions" title="More">⋯</button>
+      <button class="more-toggle" id="moreToggle" aria-label="More actions" aria-haspopup="true" aria-expanded="false" title="More">⋯</button>
       <div class="more-menu" id="moreMenu">
         <button class="iconbtn" data-action="export">⬇ Export progress</button>
         <button class="iconbtn" data-action="import">⬆ Import progress</button>
-        <button class="iconbtn" data-action="theme">☀ Toggle theme</button>
+        <button class="iconbtn" data-action="theme" id="themeMenuBtn">☀ Light theme</button>
         <button class="iconbtn" data-action="reset">⟲ Reset progress</button>
+        <div class="more-sep">Look</div>
+        <div class="look-list" id="lookMenuMobile" role="group" aria-label="Look"></div>
       </div>
     </div>
   </header>
@@ -54,15 +104,33 @@
 
   <!-- Layout -->
   <div class="layout">
-    <aside class="sidebar" id="sidebar"></aside>
-    <main class="main" id="main"></main>
+    <aside class="sidebar" id="sidebar" aria-label="Chapters"></aside>
+    <main class="main" id="main" tabindex="-1"></main>
   </div>
 
   <!-- Toast for status messages -->
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Scripts: data first, then app -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <!-- Core -->
+  <script src="core/registry.js?v=5"></script>
+  <script src="core/legacy.js?v=5"></script>
+  <script src="core/manifest.js?v=5"></script>
+  <script src="viz/core.js?v=5"></script>
+  <!-- Study material (each calls DDIA.registerChapter). Deep dives (chapters/chN.deep*.js)
+       are lazy-loaded by DDIA.loadDeep when a chapter's Deep Dive is opened. -->
+  <script src="chapters/ch1.js?v=5"></script>
+  <script src="chapters/ch2.js?v=5"></script>
+  <script src="chapters/ch3.js?v=5"></script>
+  <script src="chapters/ch4.js?v=5"></script>
+  <script src="chapters/ch5.js?v=5"></script>
+  <script src="chapters/ch6.js?v=5"></script>
+  <script src="chapters/ch7.js?v=5"></script>
+  <script src="chapters/ch8.js?v=5"></script>
+  <script src="chapters/ch9.js?v=5"></script>
+  <script src="chapters/ch10.js?v=5"></script>
+  <script src="chapters/ch11.js?v=5"></script>
+  <script src="chapters/ch12.js?v=5"></script>
+  <!-- App (visualizations in viz/<chapter>/*.js are lazy-loaded on demand) -->
+  <script src="app.js?v=5"></script>
 </body>
 </html>

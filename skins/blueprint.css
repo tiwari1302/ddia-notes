@@ -1,0 +1,1017 @@
+/* ==========================================================================
+   Skin: blueprint
+   An engineer's drafting table for distributed systems.
+   Dark  = cyanotype blueprint: deep Prussian blue, graph-paper grid, white and
+           pale-cyan line work, monospace annotations.
+   Light = white drafting paper, faint blue grid, navy ink, red-pencil marks.
+   Square corners, 1px rules, dashed construction lines, corner tick marks.
+   Every rule is scoped to :root[data-skin="blueprint"].
+   ========================================================================== */
+/* Fonts: loaded asynchronously by the loader in index.html (DDIA_LOOKS.fonts), so a slow or
+   blocked Google Fonts never delays first paint; system fallbacks show until they arrive. */
+
+/* --------------------------------------------------------------------------
+   Tokens: dark (blueprint)
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] {
+  --bg: #0d2c56;
+  --bg-2: #0f315e;
+  --bg-3: #143a6c;
+  --bg-4: #1a4479;
+  --border: rgba(127, 176, 235, 0.30);
+  --border-strong: rgba(160, 200, 245, 0.58);
+  --text: #e8f1fc;
+  --text-strong: #ffffff;
+  --text-muted: #a3bde0;
+  --accent: #7fdcff;
+  --accent-strong: #e4f5ff;   /* solid "inverted" fills: navy text sits on them */
+  --accent-ink: #9fe6ff;
+  --accent-2: #8fdcff;
+  --accent-3: #ffc54d;
+  --good: #5ee69a;
+  --bad: #ff6b6b;
+  --warn: #ffc54d;
+  --easy: #5ee69a;
+  --med: #ffc54d;
+  --hard: #ff8080;
+  --shadow: none;
+  --radius: 0px;
+  --round: 0;
+  --accent-grad-end: var(--accent-strong);
+  --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", "Roboto Condensed", "Arial Narrow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-reading: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Skin-private tokens */
+  --bp-on-accent: #0a2547;                      /* text on --accent-strong */
+  --bp-tick: #d6ecff;                           /* corner tick marks */
+  --bp-grid-minor: rgba(127, 176, 235, 0.06);
+  --bp-grid-major: rgba(127, 176, 235, 0.12);
+  --bp-well: #0a2549;                           /* code wells, recessed panels */
+  --bp-wash: 4%;                                /* tone wash inside annotation frames */
+
+  /* Callout tones: annotation inks */
+  --c-problem: #ff8a65;
+  --c-idea: #7fe3ff;
+  --c-analogy: #c9b6ff;
+  --c-insight: #8fc1ff;
+  --c-warning: #ffc84d;
+  --c-interview: #ff9ecf;
+  --c-history: #d9c29a;
+  --c-modern: #6ee7a0;
+  --c-tip: #6ee7a0;
+  --c-mistake: #ff6b6b;
+
+  /* Visualization palette: line work on cyanotype */
+  --viz-bg: #0b2850;
+  --viz-panel: #0f315e;
+  --viz-ink: #eef5ff;
+  --viz-muted: #a6c0e2;
+  --viz-line: #6189bd;
+  --viz-grid: #1b4274;
+  --viz-node: #0e2f5a;
+  --viz-node-stroke: #c3d6ee;
+  --viz-c1: #cdb4ff;  /* lilac: leader / primary */
+  --viz-c2: #5ce1f0;  /* cyan: followers / replicas */
+  --viz-c3: #ffc54d;  /* amber */
+  --viz-c4: #6ee7a0;  /* green */
+  --viz-c5: #ff9ecf;  /* pink */
+  --viz-c6: #74adff;  /* cornflower: clients */
+  --viz-c7: #ff9a57;  /* orange */
+  --viz-c8: #c4f06a;  /* lime */
+  /* Fills: cool hues are faint washes (the stroke carries the meaning); warm hues would turn
+     purple-grey as a translucent wash over blue, so they are deep, nearly opaque shades instead. */
+  --viz-c1-soft: rgba(205, 180, 255, 0.13);
+  --viz-c2-soft: rgba(92, 225, 240, 0.11);
+  --viz-c3-soft: rgba(112, 82, 8, 0.74);
+  --viz-c4-soft: rgba(110, 231, 160, 0.11);
+  --viz-c5-soft: rgba(112, 26, 84, 0.62);
+  --viz-c6-soft: rgba(116, 173, 255, 0.14);
+  --viz-c7-soft: rgba(122, 50, 14, 0.74);
+  --viz-c8-soft: rgba(72, 100, 16, 0.70);
+  --viz-ok: #5ee69a;
+  --viz-bad: #ff6b6b;
+  --viz-warn: #ffc54d;
+  --viz-info: #74adff;
+  --viz-accent: #cdb4ff;
+  --viz-ok-soft: rgba(94, 230, 154, 0.12);
+  --viz-bad-soft: rgba(122, 24, 40, 0.74);
+  --viz-warn-soft: rgba(112, 82, 8, 0.74);
+  --viz-info-soft: rgba(116, 173, 255, 0.13);
+}
+
+/* --------------------------------------------------------------------------
+   Tokens: light (drafting paper)
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] body.light {
+  --bg: #f9fbfd;
+  --bg-2: #ffffff;
+  --bg-3: #eef3f9;
+  --bg-4: #e2eaf4;
+  --border: rgba(18, 54, 110, 0.20);
+  --border-strong: rgba(18, 54, 110, 0.45);
+  --text: #0b2545;
+  --text-strong: #051833;
+  --text-muted: #4a6283;
+  --accent: #1f4fbf;
+  --accent-strong: #12366e;
+  --accent-ink: #1a47ad;
+  --accent-2: #0a5f99;
+  --accent-3: #a35a00;
+  --good: #137a49;
+  --bad: #c01f28;
+  --warn: #a35a00;
+  --easy: #137a49;
+  --med: #a35a00;
+  --hard: #c01f28;
+  --shadow: none;
+  --accent-grad-end: var(--accent-strong);
+
+  --bp-on-accent: #ffffff;
+  --bp-tick: #12366e;
+  --bp-grid-minor: rgba(31, 79, 191, 0.055);
+  --bp-grid-major: rgba(31, 79, 191, 0.11);
+  --bp-well: #f2f6fb;
+  --bp-wash: 3%;
+
+  --c-problem: #c2410c;
+  --c-idea: #0b6f93;
+  --c-analogy: #6d3fd1;
+  --c-insight: #1f5fd6;
+  --c-warning: #a35a00;
+  --c-interview: #b0266a;
+  --c-history: #7a5a32;
+  --c-modern: #137a49;
+  --c-tip: #137a49;
+  --c-mistake: #c01f28;
+
+  --viz-bg: #fbfcfe;
+  --viz-panel: #ffffff;
+  --viz-ink: #0b2545;
+  --viz-muted: #4f6789;
+  --viz-line: #8ea6c4;
+  --viz-grid: #e2eaf4;
+  --viz-node: #ffffff;
+  --viz-node-stroke: #49668c;
+  --viz-c1: #6d3fd1;
+  --viz-c2: #0a7ea4;
+  --viz-c3: #b26b00;
+  --viz-c4: #138a52;
+  --viz-c5: #c2306f;
+  --viz-c6: #1f5fd6;
+  --viz-c7: #c9520c;
+  --viz-c8: #5a860c;
+  --viz-c1-soft: rgba(109, 63, 209, 0.09);
+  --viz-c2-soft: rgba(10, 126, 164, 0.09);
+  --viz-c3-soft: rgba(178, 107, 0, 0.10);
+  --viz-c4-soft: rgba(19, 138, 82, 0.09);
+  --viz-c5-soft: rgba(194, 48, 111, 0.09);
+  --viz-c6-soft: rgba(31, 95, 214, 0.09);
+  --viz-c7-soft: rgba(201, 82, 12, 0.09);
+  --viz-c8-soft: rgba(90, 134, 12, 0.10);
+  --viz-ok: #138a52;
+  --viz-bad: #d0242b;
+  --viz-warn: #b26b00;
+  --viz-info: #1f5fd6;
+  --viz-accent: #6d3fd1;
+  --viz-ok-soft: rgba(19, 138, 82, 0.09);
+  --viz-bad-soft: rgba(208, 36, 43, 0.08);
+  --viz-warn-soft: rgba(178, 107, 0, 0.10);
+  --viz-info-soft: rgba(31, 95, 214, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Base: the sheet itself
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--bp-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  font-feature-settings: "kern";
+  line-height: 1.6;
+}
+:root[data-skin="blueprint"] ::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--text-strong); }
+:root[data-skin="blueprint"] :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:root[data-skin="blueprint"] code {
+  font-family: var(--font-mono); font-size: 0.86em; background: var(--bp-well);
+  border: 1px solid var(--border); padding: 1px 5px; color: var(--text-strong);
+}
+:root[data-skin="blueprint"] pre { background: var(--bp-well); }
+:root[data-skin="blueprint"] pre code { border: 0; padding: 0; background: none; color: inherit; }
+:root[data-skin="blueprint"] mark { background: color-mix(in srgb, var(--warn) 32%, transparent); }
+:root[data-skin="blueprint"] kbd { font-family: var(--font-mono); background: var(--bg-3); border: 1px solid var(--border-strong); border-bottom-width: 2px; }
+:root[data-skin="blueprint"] .skip-link { background: var(--accent-strong); color: var(--bp-on-accent); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; }
+:root[data-skin="blueprint"] .read-bar { background: var(--accent); height: 2px; }
+:root[data-skin="blueprint"] h1, :root[data-skin="blueprint"] h2, :root[data-skin="blueprint"] h3 { font-weight: 600; }
+
+/* Corner tick marks: bright L's at the four corners of a frame, over a dim 1px rule.
+   (Borders are translucent, so the ticks show through them.) */
+:root[data-skin="blueprint"] :where(.dash-hero, .next-up, .dash-stats, .map-ch, .viz, .dd-diagram, .concept-card,
+  .rw-card, .cmp-card, .to-col, .quiz, .quiz-setup, .gallery-card, .cheatsheet-block, .fc-face, .dd-keypoints,
+  .callout, .conn-card, .nav-btn, .dd-hook, .table-wrap, .dd-code, .qa-item.open, .empty-tab, .dd-loading, .dd-section-head) {
+  --tk: var(--bp-tick);
+  background-image:
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk));
+  background-size: 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px;
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  border-radius: 0;
+}
+
+/* Small monospace caps: the lettering of every label on the sheet */
+:root[data-skin="blueprint"] :is(.chapter-label, .dd-kicker, .dd-block-title, .callout-label, .part-header, .stat-label,
+  .viz-chip, .viz-stat-label, .viz-log-title, .viz-panel-title, .quiz-chip, .next-up-label, .next-up-then, .map-part,
+  .dd-toc-title, .nav-btn-label, .fc-label, .to-head, .chips-label, .qa-sub, .sr-label, .viz-try-label, .meta-chip,
+  .tab-count, .rw-year, .rw-tag, .gl-ch, .map-ch-badge, .diff-badge, .tag, .crumb-count, .map-ch-meta, .dd-code-lang) {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Top bar: the drawing's border strip (double rule)
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .topbar {
+  background: var(--bg-2);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  border-bottom: 1px solid var(--border-strong);
+  box-shadow: 0 3px 0 var(--bg-2), 0 4px 0 var(--border);
+}
+:root[data-skin="blueprint"] .brand {
+  font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--text-strong);
+}
+:root[data-skin="blueprint"] .brand .logo {
+  background: transparent; border: 1.5px solid var(--accent); color: var(--accent);
+  font-family: var(--font-mono); font-weight: 600; font-size: 14px; border-radius: 0; position: relative;
+}
+/* crosshair through the logo box */
+:root[data-skin="blueprint"] .brand .logo::before,
+:root[data-skin="blueprint"] .brand .logo::after { content: ""; position: absolute; background: var(--accent); opacity: 0.9; }
+:root[data-skin="blueprint"] .brand .logo::before { left: 50%; top: -6px; width: 1px; height: 4px; box-shadow: 0 33px 0 var(--accent); }
+:root[data-skin="blueprint"] .brand .logo::after { top: 50%; left: -6px; height: 1px; width: 4px; box-shadow: 33px 0 0 var(--accent); }
+:root[data-skin="blueprint"] .brand-sub {
+  font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 400;
+  border-left: 1px solid var(--border-strong); padding-left: 10px; margin-left: 6px;
+}
+:root[data-skin="blueprint"] .search-box {
+  background: var(--bp-well); border: 1px solid var(--border-strong); border-radius: 0; font-family: var(--font-mono); font-size: 13px; width: 250px;
+}
+:root[data-skin="blueprint"] .search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+:root[data-skin="blueprint"] .search-kbd { border-radius: 0; }
+:root[data-skin="blueprint"] :is(.iconbtn, .menu-toggle, .more-toggle, .search-toggle) {
+  background: transparent; border: 1px solid var(--border-strong); border-radius: 0; color: var(--text);
+}
+:root[data-skin="blueprint"] .iconbtn { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 10px; }
+:root[data-skin="blueprint"] .iconbtn:hover,
+:root[data-skin="blueprint"] .topbar.search-open .search-toggle { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .more-menu { background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: 0; box-shadow: 4px 4px 0 var(--border); }
+:root[data-skin="blueprint"] .more-menu .iconbtn { border: 0; background: transparent; }
+:root[data-skin="blueprint"] .more-menu .iconbtn:hover { background: var(--accent-strong); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .progress-pill {
+  background: transparent; border: 1px solid var(--border-strong); border-radius: 0; font-family: var(--font-mono); font-size: 12px; padding: 6px 10px;
+}
+:root[data-skin="blueprint"] .progress-pill-bar { width: 80px; }
+:root[data-skin="blueprint"] :is(.progress-pill-bar, .meta-progress-bar, .stat-bar) {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong); height: 7px; box-sizing: border-box;
+  /* ruler graduations */
+  background-image: repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 10%);
+}
+:root[data-skin="blueprint"] :is(.progress-pill-fill, .meta-progress-bar span, .stat-bar span) { background: var(--accent); }
+
+/* --------------------------------------------------------------------------
+   Sidebar: the sheet index
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .sidebar { background: var(--bg-2); border-right: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .nav-group { border-bottom: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .part-header {
+  display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: var(--accent-ink); letter-spacing: 0.12em; padding: 18px 8px 8px;
+}
+:root[data-skin="blueprint"] .part-header::after { content: ""; flex: 1; border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .chapter-item { border-radius: 0; border: 1px solid transparent; font-size: 13.5px; }
+:root[data-skin="blueprint"] .chapter-item:hover { background: var(--bg-3); border-color: var(--border); }
+:root[data-skin="blueprint"] .chapter-item.active {
+  background: color-mix(in srgb, var(--accent) 9%, transparent); border-color: var(--border-strong);
+  box-shadow: inset 2px 0 0 var(--accent); color: var(--text-strong);
+}
+:root[data-skin="blueprint"] .chapter-num {
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px; border-radius: 0; background: transparent;
+  border: 1px solid var(--border-strong); color: var(--text-muted); min-width: 26px; height: 22px;
+}
+:root[data-skin="blueprint"] .chapter-item.active .chapter-num { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .chapter-ring .bg { stroke: var(--border-strong); }
+:root[data-skin="blueprint"] .chapter-ring circle { stroke-width: 2; }
+:root[data-skin="blueprint"] .side-sections { border-left: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .side-section { border-radius: 0; }
+:root[data-skin="blueprint"] .side-section.current { color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 9%, transparent); box-shadow: inset 2px 0 0 var(--accent); }
+
+/* --------------------------------------------------------------------------
+   Chapter header & tabs
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .chapter-header { position: relative; border-bottom: 1px solid var(--border-strong); }
+/* architectural dimension ticks: short slashes across both ends of the rule */
+:root[data-skin="blueprint"] .chapter-header::before,
+:root[data-skin="blueprint"] .chapter-header::after {
+  content: ""; position: absolute; bottom: -6px; width: 1px; height: 11px; background: var(--accent); transform: rotate(45deg);
+}
+:root[data-skin="blueprint"] .chapter-header::before { left: 0; }
+:root[data-skin="blueprint"] .chapter-header::after { right: 0; }
+:root[data-skin="blueprint"] .chapter-label { font-size: 11.5px; color: var(--accent-ink); letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .chapter-label::before { content: "§ "; color: var(--text-muted); }
+:root[data-skin="blueprint"] .chapter-header h1 { font-size: 40px; line-height: 1.1; letter-spacing: -0.005em; font-weight: 600; }
+:root[data-skin="blueprint"] .chapter-tagline { font-size: 17px; color: var(--text-muted); }
+:root[data-skin="blueprint"] .meta-chip {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong); font-size: 10.5px; padding: 3px 8px; color: var(--text-muted);
+}
+:root[data-skin="blueprint"] .meta-progress { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+:root[data-skin="blueprint"] .overview-details summary { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+:root[data-skin="blueprint"] .tabs { border-bottom: 1px solid var(--border-strong); background: var(--bg); gap: 0; }
+:root[data-skin="blueprint"] .tab {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+  border-radius: 0; border: 1px solid transparent; border-bottom: 0; margin-bottom: -1px; padding: 12px 16px;
+}
+:root[data-skin="blueprint"] .tab.active {
+  color: var(--text-strong); background: var(--bg-2); border-color: var(--border-strong);
+  box-shadow: inset 0 2px 0 var(--accent), 0 1px 0 var(--bg-2);
+}
+:root[data-skin="blueprint"] .tab-count { border-radius: 0; background: transparent; border: 1px solid var(--border); font-size: 10px; letter-spacing: 0.04em; padding: 0 5px; }
+:root[data-skin="blueprint"] .tab.active .tab-count { background: transparent; border-color: var(--accent); color: var(--accent-ink); }
+
+/* --------------------------------------------------------------------------
+   Deep dive
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .dd-toc-title { font-family: var(--font-mono); letter-spacing: 0.14em; color: var(--accent-ink); font-weight: 500; }
+:root[data-skin="blueprint"] .toc-link { border-radius: 0; border-left: 1px solid var(--border); }
+:root[data-skin="blueprint"] .toc-link.current { border-left: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+:root[data-skin="blueprint"] .toc-num { font-family: var(--font-mono); font-weight: 500; }
+
+/* Hook: the drawing's general note */
+:root[data-skin="blueprint"] .dd-hook {
+  border: 1px solid var(--border-strong); border-radius: 0; background-color: var(--bg-2);
+  position: relative; padding: 26px 28px 22px; margin-top: 12px;
+}
+:root[data-skin="blueprint"] .dd-hook::before {
+  content: "General note"; position: absolute; top: -9px; left: 18px; padding: 0 8px; background: var(--bg);
+  font: 500 10.5px/18px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink);
+}
+
+/* Section: each one is a sheet with a title block */
+:root[data-skin="blueprint"] .dd-section { border-bottom: 1px dashed var(--border-strong); padding-bottom: 34px; margin-bottom: 40px; }
+:root[data-skin="blueprint"] .dd-section-head {
+  display: flex; align-items: stretch; gap: 0; margin-bottom: 22px;
+  border: 1px solid var(--border-strong); background-color: var(--bg-2);
+}
+:root[data-skin="blueprint"] .dd-section-num {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  margin: 0; padding: 10px 14px; min-width: 76px; border: 0; border-right: 1px solid var(--border-strong);
+  background: transparent; font: 600 24px/1 var(--font-mono); color: var(--accent); letter-spacing: 0.02em;
+}
+:root[data-skin="blueprint"] .dd-section-num::before {
+  content: "Sheet"; font: 500 9.5px/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
+}
+:root[data-skin="blueprint"] .dd-section.is-done .dd-section-num { color: var(--good); background: color-mix(in srgb, var(--good) 8%, transparent); }
+:root[data-skin="blueprint"] .dd-section-head > div:last-child { padding: 12px 18px 13px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+:root[data-skin="blueprint"] .dd-kicker { font-size: 10.5px; letter-spacing: 0.14em; color: var(--accent-ink); }
+:root[data-skin="blueprint"] .dd-section h2 { font-size: 27px; line-height: 1.2; letter-spacing: 0; font-weight: 600; }
+:root[data-skin="blueprint"] .dd-section > * + * { margin-top: 20px; }
+
+:root[data-skin="blueprint"] .dd-text { font-size: 16.5px; line-height: 1.78; }
+:root[data-skin="blueprint"] .dd-text h3 { font-family: var(--font-display); font-size: 20px; line-height: 1.3; font-weight: 600; margin: 28px 0 8px; display: flex; align-items: flex-start; gap: 10px; }
+:root[data-skin="blueprint"] .dd-text h3::before { content: ""; width: 14px; flex: 0 0 14px; height: 0; margin-top: 0.65em; border-top: 2px solid var(--accent); }
+:root[data-skin="blueprint"] .dd-text h4 { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+:root[data-skin="blueprint"] .dd-text a { text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--accent-2); text-underline-offset: 3px; }
+:root[data-skin="blueprint"] .dd-text ul { list-style: square; }
+:root[data-skin="blueprint"] .dd-text li::marker { color: var(--accent); }
+:root[data-skin="blueprint"] .dd-text .formula, :root[data-skin="blueprint"] .formula {
+  border-radius: 0; background: var(--bp-well); border: 1px solid var(--border);
+  border-left: 2px solid var(--accent); color: var(--text-strong); font-size: 15px; letter-spacing: 0.02em;
+}
+:root[data-skin="blueprint"] .dd-text blockquote { border-left: 2px solid var(--accent); }
+:root[data-skin="blueprint"] :is(.hl, .hl-good, .hl-bad, .hl-warn) { border-radius: 0; }
+:root[data-skin="blueprint"] .tag { border-radius: 0; background: transparent; border-color: var(--border-strong); font-size: 10px; }
+
+/* Block titles: a lettered label on a dashed construction line */
+:root[data-skin="blueprint"] .dd-block-title { font-size: 11px; letter-spacing: 0.14em; color: var(--accent-ink); gap: 10px; }
+:root[data-skin="blueprint"] .dd-block-title .dd-icon { display: none; }
+:root[data-skin="blueprint"] .dd-block-title::before { content: ""; width: 18px; flex: 0 0 18px; border-top: 1px solid var(--accent); }
+:root[data-skin="blueprint"] .dd-block-title::after { content: ""; flex: 1; min-width: 20px; border-top: 1px dashed var(--border-strong); }
+
+/* Callouts: annotations on the drawing (a frame with its label lettered into the top rule) */
+:root[data-skin="blueprint"] .callout {
+  --tk: var(--tone); --cpt: 22px;
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--tone) 50%, transparent);
+  background-color: color-mix(in srgb, var(--tone) var(--bp-wash), var(--bg));
+  border-radius: 0; padding: var(--cpt) 22px 18px; font-size: 15.5px; line-height: 1.72;
+}
+:root[data-skin="blueprint"] .dd-section > .callout, :root[data-skin="blueprint"] .dd-article > .callout { margin-top: 30px; }
+:root[data-skin="blueprint"] .dd-section > .dd-section-head + .callout, :root[data-skin="blueprint"] .dd-section > .dd-section-head + .quiz { margin-top: 12px; }
+/* The label is lettered into the top rule; it stays in flow, so a long label wraps instead of overlapping. */
+:root[data-skin="blueprint"] .callout-head {
+  display: flex; width: fit-content; align-items: flex-start; gap: 8px; max-width: 100%;
+  margin: calc(-1 * var(--cpt) - 10px) 0 12px -8px; padding: 0 8px 0 6px;
+  background: linear-gradient(var(--bg) 0 10px, color-mix(in srgb, var(--tone) var(--bp-wash), var(--bg)) 10px);
+  line-height: 18px; position: relative;
+}
+:root[data-skin="blueprint"] .callout-icon { display: none; }
+:root[data-skin="blueprint"] .callout-head::before {
+  content: ""; width: 7px; height: 7px; flex: 0 0 7px; margin-top: 5.5px; border: 1px solid var(--tone); background: var(--tone);
+  transform: rotate(45deg);
+}
+:root[data-skin="blueprint"] .callout-head + .callout-body { margin-top: 0; }
+:root[data-skin="blueprint"] .callout-label { font-size: 11px; letter-spacing: 0.13em; font-weight: 600; color: var(--tone); min-width: 0; }
+:root[data-skin="blueprint"] .callout-problem .callout-body, :root[data-skin="blueprint"] .callout-idea .callout-body { font-size: 16px; }
+:root[data-skin="blueprint"] .callout-body strong { color: var(--text-strong); }
+:root[data-skin="blueprint"] .callout-body ul { list-style: square; }
+
+/* Real-world cards: spec cards */
+:root[data-skin="blueprint"] .rw-card { border: 1px solid var(--border-strong); background-color: var(--bg-2); padding: 14px 16px 16px; }
+:root[data-skin="blueprint"] .rw-card::before { display: none; }
+:root[data-skin="blueprint"] .rw-head { padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px dashed var(--border); }
+:root[data-skin="blueprint"] .rw-org { font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: 0.01em; }
+:root[data-skin="blueprint"] :is(.rw-year, .rw-tag) { border-radius: 0; border-color: var(--border-strong); font-size: 9.5px; padding: 1px 6px; }
+:root[data-skin="blueprint"] .rw-title { color: var(--accent-2); font-weight: 600; }
+
+/* Trade-offs */
+:root[data-skin="blueprint"] .to-col { border: 1px solid var(--border-strong); background-color: var(--bg-2); border-top-width: 1px; }
+:root[data-skin="blueprint"] .to-pros { --tk: var(--good); box-shadow: inset 0 2px 0 var(--good); }
+:root[data-skin="blueprint"] .to-cons { --tk: var(--bad); box-shadow: inset 0 2px 0 var(--bad); }
+:root[data-skin="blueprint"] .to-head { font-size: 11px; letter-spacing: 0.13em; font-weight: 600; }
+:root[data-skin="blueprint"] .to-pros .to-head::before { content: "+ "; }
+:root[data-skin="blueprint"] .to-cons .to-head::before { content: "− "; }
+:root[data-skin="blueprint"] .to-col ul { list-style: square; }
+:root[data-skin="blueprint"] .to-pros li::marker { color: var(--good); }
+:root[data-skin="blueprint"] .to-cons li::marker { color: var(--bad); }
+
+/* Compare */
+:root[data-skin="blueprint"] .cmp-card { --tk: var(--tone); border: 1px solid var(--border-strong); border-top: 1px solid var(--border-strong); background-color: var(--bg-2); box-shadow: inset 0 2px 0 var(--tone); }
+:root[data-skin="blueprint"] .cmp-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+
+/* Tables: a parts schedule, fully ruled */
+:root[data-skin="blueprint"] .table-wrap { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .table-wrap th {
+  background: var(--bg-3); color: var(--accent-ink); font-family: var(--font-mono); font-weight: 500; font-size: 10.5px; letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--border-strong);
+}
+:root[data-skin="blueprint"] .table-wrap :is(th, td) { border-right: 1px solid var(--border); }
+:root[data-skin="blueprint"] .table-wrap :is(th, td):last-child { border-right: 0; }
+:root[data-skin="blueprint"] .table-wrap td:first-child { font-family: var(--font-mono); font-weight: 500; font-size: 13px; color: var(--text-strong); }
+:root[data-skin="blueprint"] .cs-note { font-style: normal; font-family: var(--font-mono); font-size: 12px; }
+
+/* Code */
+:root[data-skin="blueprint"] .dd-code { border: 1px solid var(--border-strong); background-color: var(--bp-well); }
+:root[data-skin="blueprint"] .dd-code-head { background: var(--bg-2); border-bottom: 1px solid var(--border-strong); font-family: var(--font-mono); font-weight: 500; font-size: 12px; }
+:root[data-skin="blueprint"] .dd-code-lang { color: var(--accent-ink); letter-spacing: 0.12em; }
+:root[data-skin="blueprint"] .dd-code pre { font-size: 13.5px; }
+:root[data-skin="blueprint"] .dd-code-caption { background: var(--bg-2); border-top: 1px dashed var(--border-strong); }
+
+/* Steps, key points, timeline */
+:root[data-skin="blueprint"] .dd-steps li { border-radius: 0; background: var(--bg-2); border: 1px solid var(--border); }
+:root[data-skin="blueprint"] .dd-steps li::before {
+  border-radius: 0; background: transparent; border: 1px solid var(--accent); color: var(--accent-ink);
+  font-family: var(--font-mono); font-weight: 600; font-size: 12px;
+}
+:root[data-skin="blueprint"] .dd-keypoints { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .dd-keypoints li::before { content: "▸"; color: var(--accent); }
+:root[data-skin="blueprint"] .tl { border-left: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .tl li::before { border-radius: 0; background: var(--bg); border: 1.5px solid var(--accent); width: 9px; height: 9px; left: -5px; transform: rotate(45deg); }
+:root[data-skin="blueprint"] .tl-year { color: var(--accent-ink); font-weight: 600; }
+
+/* Static diagram: a figure plate on graph paper */
+:root[data-skin="blueprint"] .dd-diagram {
+  border: 1px solid var(--border-strong); background-color: var(--viz-bg); padding: 16px 18px;
+  background-image:
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--bp-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px);
+  background-size: 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px, 20px 20px, 20px 20px;
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%, -1px -1px, -1px -1px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+}
+:root[data-skin="blueprint"] .dd-diagram-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-ink);
+  padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px dashed var(--border-strong);
+}
+:root[data-skin="blueprint"] .dd-diagram-title::before { content: "Fig. — "; color: var(--text-muted); }
+:root[data-skin="blueprint"] .dd-diagram figcaption { border-top: 1px dashed var(--border-strong); padding-top: 10px; font-size: 13.5px; }
+
+/* Quiz (inline "check yourself") */
+:root[data-skin="blueprint"] .quiz {
+  position: relative; border: 1px solid var(--border-strong); background-color: var(--bg-2); padding: 24px 20px 18px;
+}
+:root[data-skin="blueprint"] .dd-section > .quiz { margin-top: 30px; }
+:root[data-skin="blueprint"] .quiz:not(.quiz-solo) .quiz-chip {
+  position: absolute; top: -10px; left: 14px; padding: 0 8px; background: var(--bg); line-height: 18px;
+}
+:root[data-skin="blueprint"] .quiz-chip { font-size: 11px; letter-spacing: 0.13em; color: var(--accent-ink); font-weight: 600; }
+:root[data-skin="blueprint"] .quiz-q { font-family: var(--font-sans); font-size: 16px; font-weight: 600; color: var(--text-strong); }
+:root[data-skin="blueprint"] .quiz-opts { gap: 6px; }
+:root[data-skin="blueprint"] .quiz-opt { border-radius: 0; background: transparent; border: 1px solid var(--border); padding: 9px 12px; align-items: center; }
+:root[data-skin="blueprint"] .quiz-opt:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+:root[data-skin="blueprint"] .quiz-letter {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px;
+  border: 1px solid var(--border-strong); font: 600 12px/1 var(--font-mono); color: var(--accent-ink);
+}
+:root[data-skin="blueprint"] .quiz.answered .quiz-opt.is-correct { border-color: var(--good); background: color-mix(in srgb, var(--good) 10%, transparent); }
+:root[data-skin="blueprint"] .quiz.answered .quiz-opt.is-correct .quiz-letter { border-color: var(--good); background: var(--good); color: var(--bg); }
+:root[data-skin="blueprint"] .quiz.answered .quiz-opt.is-wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, transparent); }
+:root[data-skin="blueprint"] .quiz.answered .quiz-opt.is-wrong .quiz-letter { border-color: var(--bad); background: var(--bad); color: var(--bg); }
+:root[data-skin="blueprint"] .quiz-explain { border-radius: 0; background: var(--bp-well); border: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .quiz-explain.tone-ok { border-left: 2px solid var(--good); }
+:root[data-skin="blueprint"] .quiz-explain.tone-bad { border-left: 2px solid var(--bad); }
+:root[data-skin="blueprint"] .quiz-retry { color: var(--accent-2); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; }
+
+/* Section footer */
+:root[data-skin="blueprint"] .chips-label { font-size: 10.5px; letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .concept-chip { border-radius: 0; background: transparent; border: 1px solid var(--border-strong); font-size: 12.5px; }
+:root[data-skin="blueprint"] .concept-chip:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+:root[data-skin="blueprint"] .section-done-btn {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+}
+:root[data-skin="blueprint"] .section-done-btn::before { content: "☐  "; }
+:root[data-skin="blueprint"] .section-done-btn.on::before { content: ""; }
+:root[data-skin="blueprint"] .section-done-btn:hover { border-color: var(--good); color: var(--good); }
+:root[data-skin="blueprint"] .section-done-btn.on { background: color-mix(in srgb, var(--good) 12%, transparent); border-color: var(--good); color: var(--good); }
+
+:root[data-skin="blueprint"] .takeaway-list { margin-left: 32px; }
+:root[data-skin="blueprint"] .takeaway-list li { padding-left: 6px; }
+:root[data-skin="blueprint"] .takeaway-list li::marker { color: var(--accent); font-family: var(--font-mono); font-weight: 600; }
+:root[data-skin="blueprint"] .dd-further ul { list-style: square; }
+:root[data-skin="blueprint"] .dd-further li::marker { color: var(--accent); }
+:root[data-skin="blueprint"] .conn-card { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .conn-card:hover { border-color: var(--accent); }
+:root[data-skin="blueprint"] .conn-ch { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; font-weight: 500; }
+:root[data-skin="blueprint"] .flash-target { animation: bpFlash 1.6s ease; }
+@keyframes bpFlash { 0%, 40% { outline: 2px dashed var(--accent); outline-offset: 4px; } 100% { outline: 2px dashed transparent; outline-offset: 4px; } }
+
+/* --------------------------------------------------------------------------
+   Visualization frame & UI kit: a schematic plate
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .viz {
+  border: 1px solid var(--border-strong); background-color: var(--viz-bg); box-shadow: none;
+}
+:root[data-skin="blueprint"] .viz-head {
+  background: var(--viz-panel); border-bottom: 1px solid var(--border-strong); padding: 9px 12px; gap: 12px;
+}
+:root[data-skin="blueprint"] .viz-chip {
+  border-radius: 0; background: var(--accent-strong); color: var(--bp-on-accent); border: 1px solid var(--accent-strong);
+  font-size: 9.5px; letter-spacing: 0.14em; padding: 2px 7px; font-weight: 600;
+}
+:root[data-skin="blueprint"] .viz-title { font-family: var(--font-display); font-size: 15.5px; font-weight: 600; letter-spacing: 0.01em; }
+:root[data-skin="blueprint"] .viz-icon-btn { border-radius: 0; border: 1px solid var(--border); color: var(--text-muted); }
+:root[data-skin="blueprint"] .viz-icon-btn:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .viz-body {
+  background-image:
+    linear-gradient(var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--bp-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -1px -1px;
+}
+:root[data-skin="blueprint"] .viz-skeleton { border-radius: 0; }
+:root[data-skin="blueprint"] .viz-caption { border-top: 1px dashed var(--border-strong); background: var(--viz-panel); font-size: 13.5px; }
+:root[data-skin="blueprint"] .viz-error { border-radius: 0; }
+:root[data-skin="blueprint"] .viz-svg text, :root[data-skin="blueprint"] .dd-diagram-body svg text { font-family: var(--font-sans); }
+
+/* Buttons */
+:root[data-skin="blueprint"] .viz-btn {
+  border-radius: 0; border: 1px solid var(--border-strong); background: var(--viz-panel); color: var(--viz-ink);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; padding: 7px 12px;
+}
+:root[data-skin="blueprint"] .viz-btn:hover:not(:disabled) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--viz-panel)); }
+:root[data-skin="blueprint"] .viz-btn.is-active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--viz-panel)); color: var(--accent-ink); }
+:root[data-skin="blueprint"] .viz-btn--primary { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bp-on-accent); font-weight: 600; }
+:root[data-skin="blueprint"] .viz-btn--primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .viz-btn--ghost { background: transparent; border-style: dashed; border-color: var(--border-strong); color: var(--text-muted); }
+:root[data-skin="blueprint"] .viz-btn--danger { border-color: color-mix(in srgb, var(--bad) 70%, transparent); color: var(--bad); }
+:root[data-skin="blueprint"] .viz-btn--ok { border-color: color-mix(in srgb, var(--good) 70%, transparent); color: var(--good); }
+
+/* Slider: a graduated rule with a square cursor */
+:root[data-skin="blueprint"] .viz-slider { font-size: 12.5px; }
+:root[data-skin="blueprint"] .viz-slider-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+:root[data-skin="blueprint"] .viz-slider input[type=range] {
+  -webkit-appearance: none; appearance: none; height: 22px; background: transparent; cursor: pointer; margin: 0;
+}
+:root[data-skin="blueprint"] .viz-slider input[type=range]::-webkit-slider-runnable-track {
+  height: 9px; border: 0;
+  background:
+    linear-gradient(var(--border-strong), var(--border-strong)) 0 50% / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 12.5%) 0 50% / calc(100% + 1px) 9px no-repeat;
+}
+:root[data-skin="blueprint"] .viz-slider input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 11px; height: 19px; margin-top: -5px; border-radius: 0;
+  background: var(--accent-strong); border: 1px solid var(--accent); box-shadow: 0 0 0 2px var(--viz-bg);
+}
+:root[data-skin="blueprint"] .viz-slider input[type=range]::-moz-range-track {
+  height: 9px; border: 0;
+  background:
+    linear-gradient(var(--border-strong), var(--border-strong)) 0 50% / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 12.5%) 0 50% / calc(100% + 1px) 9px no-repeat;
+}
+:root[data-skin="blueprint"] .viz-slider input[type=range]::-moz-range-thumb {
+  width: 11px; height: 19px; border-radius: 0; background: var(--accent-strong); border: 1px solid var(--accent);
+}
+:root[data-skin="blueprint"] .viz-slider input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:root[data-skin="blueprint"] .viz-slider-val {
+  border-radius: 0; background: var(--bp-well); border: 1px solid var(--border-strong); color: var(--accent-ink); font-weight: 600;
+}
+
+/* Toggle: a square switch */
+:root[data-skin="blueprint"] .viz-toggle, :root[data-skin="blueprint"] .tool-switch { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+:root[data-skin="blueprint"] :is(.viz-toggle-track, .tool-switch-track) {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong); width: 34px; height: 18px;
+}
+:root[data-skin="blueprint"] :is(.viz-toggle-track, .tool-switch-track)::after {
+  border-radius: 0; top: 2px; left: 2px; width: 12px; height: 12px; background: var(--text-muted);
+}
+:root[data-skin="blueprint"] .viz-toggle input:checked + .viz-toggle-track,
+:root[data-skin="blueprint"] .tool-switch input:checked + .tool-switch-track { background: color-mix(in srgb, var(--accent) 22%, transparent); border-color: var(--accent); }
+:root[data-skin="blueprint"] .viz-toggle input:checked + .viz-toggle-track::after,
+:root[data-skin="blueprint"] .tool-switch input:checked + .tool-switch-track::after { background: var(--accent-strong); transform: translateX(16px); box-shadow: 0 0 0 1px var(--accent); }
+
+/* Select & segmented */
+:root[data-skin="blueprint"] .viz-select { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+:root[data-skin="blueprint"] .viz-select select { border-radius: 0; background: var(--bp-well); border-color: var(--border-strong); font-family: var(--font-mono); font-size: 12.5px; }
+:root[data-skin="blueprint"] .viz-seg-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+:root[data-skin="blueprint"] .viz-seg { border-radius: 0; padding: 0; background: transparent; border: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .viz-seg-btn {
+  border-radius: 0; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 10px;
+}
+:root[data-skin="blueprint"] .viz-seg-btn + .viz-seg-btn { border-left: 1px solid var(--border); }
+:root[data-skin="blueprint"] .viz-seg-btn.is-active { background: var(--accent-strong); color: var(--bp-on-accent); }
+
+/* Stats: instrument readouts */
+/* Cells rule themselves with outer box-shadows; the frame clips the ones on its edges. */
+:root[data-skin="blueprint"] .viz-stats { gap: 0; border: 1px solid var(--border-strong); background: var(--viz-panel); overflow: hidden; }
+:root[data-skin="blueprint"] .viz-stat {
+  --rule: 1px 0 0 var(--border), 0 1px 0 var(--border);
+  border-radius: 0; border: 0; background: transparent; padding: 8px 12px 9px; position: relative; box-shadow: var(--rule);
+}
+:root[data-skin="blueprint"] .viz-stat-label { font-size: 9.5px; letter-spacing: 0.12em; }
+:root[data-skin="blueprint"] .viz-stat-value { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: 0.01em; line-height: 1.25; }
+:root[data-skin="blueprint"] .viz-stat.tone-ok { box-shadow: var(--rule), inset 0 -2px 0 var(--viz-ok); }
+:root[data-skin="blueprint"] .viz-stat.tone-bad { box-shadow: var(--rule), inset 0 -2px 0 var(--viz-bad); }
+:root[data-skin="blueprint"] .viz-stat.tone-warn { box-shadow: var(--rule), inset 0 -2px 0 var(--viz-warn); }
+:root[data-skin="blueprint"] .viz-stat.tone-info { box-shadow: var(--rule), inset 0 -2px 0 var(--viz-info); }
+
+/* Log, note, legend, panel, badge, stepper */
+:root[data-skin="blueprint"] .viz-log { border-radius: 0; background: var(--bp-well); border: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .viz-log-title { font-size: 9.5px; letter-spacing: 0.14em; border-bottom: 1px dashed var(--border-strong); background: var(--viz-panel); }
+:root[data-skin="blueprint"] .viz-log-row { border-left-width: 2px; }
+:root[data-skin="blueprint"] .viz-log-row::before { content: "› "; color: var(--text-muted); }
+:root[data-skin="blueprint"] .viz-note {
+  border-radius: 0; border: 1px solid var(--border); border-left: 2px solid var(--viz-info);
+  background: var(--viz-panel); font-size: 14px;
+}
+:root[data-skin="blueprint"] .viz-note.tone-ok { border-color: color-mix(in srgb, var(--viz-ok) 45%, transparent); border-left-color: var(--viz-ok); background: color-mix(in srgb, var(--viz-ok) 7%, var(--viz-panel)); }
+:root[data-skin="blueprint"] .viz-note.tone-bad { border-color: color-mix(in srgb, var(--viz-bad) 45%, transparent); border-left-color: var(--viz-bad); background: color-mix(in srgb, var(--viz-bad) 7%, var(--viz-panel)); }
+:root[data-skin="blueprint"] .viz-note.tone-warn { border-color: color-mix(in srgb, var(--viz-warn) 45%, transparent); border-left-color: var(--viz-warn); background: color-mix(in srgb, var(--viz-warn) 7%, var(--viz-panel)); }
+:root[data-skin="blueprint"] .viz-legend { font-family: var(--font-mono); font-size: 11.5px; gap: 6px 16px; padding: 6px 0; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); }
+:root[data-skin="blueprint"] .viz-legend-swatch { width: 9px; height: 9px; background: transparent; border: 2px solid var(--sw); box-sizing: border-box; }
+:root[data-skin="blueprint"] .viz-legend-swatch.shape-square { border-radius: 0; background: var(--sw); }
+:root[data-skin="blueprint"] .viz-legend-swatch.shape-line { border: 0; background: var(--sw); height: 2px; border-radius: 0; }
+:root[data-skin="blueprint"] .viz-legend-swatch.shape-dash { border: 0; border-top: 2px dashed var(--sw); height: 0; }
+:root[data-skin="blueprint"] .viz-panel { border-radius: 0; border: 1px solid var(--border-strong); background: var(--viz-panel); }
+:root[data-skin="blueprint"] .viz-panel-title { font-size: 9.5px; letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .viz-badge-pill { border-radius: 0; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; }
+:root[data-skin="blueprint"] .viz-stepper { border-radius: 0; border: 1px solid var(--border-strong); background: var(--viz-panel); }
+:root[data-skin="blueprint"] .viz-step-counter { color: var(--accent-ink); }
+:root[data-skin="blueprint"] .viz-step-num {
+  border-radius: 0; background: var(--accent-strong); color: var(--bp-on-accent); font-family: var(--font-mono); font-weight: 600; font-size: 11.5px;
+}
+:root[data-skin="blueprint"] .viz-scroll-hint { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10.5px; }
+:root[data-skin="blueprint"] body.viz-expanded-open::after { background: color-mix(in srgb, var(--bg) 82%, transparent); }
+:root[data-skin="blueprint"] .viz--expanded { box-shadow: 0 0 0 1px var(--border-strong), 0 0 0 6px var(--bg); }
+
+/* --------------------------------------------------------------------------
+   Concepts: specification cards
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .concept-card {
+  border: 1px solid var(--border-strong); background-color: var(--bg-2); padding: 20px 20px 18px;
+  transition: border-color 0.15s;
+}
+:root[data-skin="blueprint"] .concept-card:hover { transform: none; box-shadow: none; border-color: var(--accent); }
+:root[data-skin="blueprint"] .concept-card.learned { --tk: var(--good); border-color: color-mix(in srgb, var(--good) 60%, transparent); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .concept-term { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--text-strong); padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+:root[data-skin="blueprint"] .concept-def { font-size: 15px; line-height: 1.65; }
+:root[data-skin="blueprint"] :is(.concept-problem, .concept-why, .concept-example) { border-top: 1px dashed var(--border-strong); font-size: 13.5px; line-height: 1.6; }
+:root[data-skin="blueprint"] :is(.concept-problem, .concept-why, .concept-example)::before {
+  display: block; margin-bottom: 3px; font: 600 10px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: 0.14em;
+}
+:root[data-skin="blueprint"] .concept-why::before { color: var(--accent-3); }
+:root[data-skin="blueprint"] .concept-example::before { color: var(--accent-2); }
+:root[data-skin="blueprint"] .concept-deeplink a { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+:root[data-skin="blueprint"] .learn-toggle { border-radius: 0; border: 1px solid var(--border-strong); background: transparent; top: 18px; right: 18px; width: 24px; height: 24px; font-size: 13px; }
+:root[data-skin="blueprint"] .learn-toggle::after { border-radius: 0; }
+:root[data-skin="blueprint"] .learn-toggle:hover { border-color: var(--good); background: color-mix(in srgb, var(--good) 10%, transparent); }
+:root[data-skin="blueprint"] .learn-toggle.on { background: var(--good); border-color: var(--good); color: var(--bg); }
+
+/* --------------------------------------------------------------------------
+   Cheatsheet
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .cheatsheet-block { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .cheatsheet-block h3 {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-ink);
+  padding-bottom: 10px; border-bottom: 1px dashed var(--border-strong);
+}
+:root[data-skin="blueprint"] .cheatsheet-block .table-wrap { background-image: none; }
+:root[data-skin="blueprint"] .cheatsheet-block ul { list-style: square; }
+
+/* --------------------------------------------------------------------------
+   Interview Q&A
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .qa-item { border-radius: 0; border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .qa-item.reviewed { border-color: color-mix(in srgb, var(--good) 60%, transparent); box-shadow: inset 2px 0 0 var(--good); }
+:root[data-skin="blueprint"] .qa-header:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+:root[data-skin="blueprint"] .qa-q { font-weight: 600; }
+:root[data-skin="blueprint"] .diff-badge { border-radius: 0; background: transparent; border: 1px solid currentColor; font-size: 9.5px; letter-spacing: 0.12em; font-weight: 600; }
+:root[data-skin="blueprint"] .qa-chevron::before, :root[data-skin="blueprint"] .dd-toc-inline summary::after { border-width: 0 1.5px 1.5px 0; }
+:root[data-skin="blueprint"] .qa-body-inner { border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .qa-sub { font-size: 10.5px; letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .qa-footer { border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .qa-deeplink { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+:root[data-skin="blueprint"] .review-btn {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong);
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+}
+:root[data-skin="blueprint"] .review-btn.on { background: color-mix(in srgb, var(--good) 12%, transparent); }
+
+/* --------------------------------------------------------------------------
+   Flashcards: index cards on graph paper
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .fc-face { border-radius: 0; border: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .fc-front {
+  --tk: var(--accent);
+  background-color: var(--bg-2); border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background-image:
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--tk), var(--tk)), linear-gradient(var(--tk), var(--tk)),
+    linear-gradient(var(--bp-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px);
+  background-size: 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px, 11px 1px, 1px 11px, 20px 20px, 20px 20px;
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%, -1px -1px, -1px -1px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+}
+:root[data-skin="blueprint"] .fc-back { --tk: var(--accent-2); background-color: var(--bg-2); border-color: color-mix(in srgb, var(--accent-2) 55%, transparent); }
+:root[data-skin="blueprint"] .fc-label { font-size: 10.5px; letter-spacing: 0.16em; color: var(--accent-ink); }
+:root[data-skin="blueprint"] .fc-front .fc-content { font-family: var(--font-display); font-size: 23px; font-weight: 600; line-height: 1.3; color: var(--text-strong); }
+:root[data-skin="blueprint"] .fc-hint { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; }
+:root[data-skin="blueprint"] .fc-gotit { border-color: color-mix(in srgb, var(--good) 60%, transparent); color: var(--good); }
+:root[data-skin="blueprint"] .fc-gotit:hover { background: var(--good); border-color: var(--good); color: var(--bg); }
+:root[data-skin="blueprint"] .fc-counter, :root[data-skin="blueprint"] .fc-top { font-family: var(--font-mono); font-size: 12px; }
+
+/* --------------------------------------------------------------------------
+   Dashboard
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .dash-hero {
+  position: relative; border: 1px solid var(--border-strong); background-color: var(--bg-2);
+  outline: 1px solid var(--border); outline-offset: 5px; margin: 6px 6px 32px; padding: 38px 38px 40px;
+}
+:root[data-skin="blueprint"] .dash-hero::after {
+  content: "DDIA · 12 chapters · 3 parts"; position: absolute; right: -1px; bottom: -1px;
+  font: 500 10px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted);
+  padding: 7px 10px; border: 1px solid var(--border-strong); background: var(--bg-2);
+}
+:root[data-skin="blueprint"] .dash-hero .chapter-label { font-size: 11px; }
+:root[data-skin="blueprint"] .dash-hero h1 { font-size: 48px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 600; margin: 14px 0 16px; text-transform: uppercase; }
+:root[data-skin="blueprint"] .dash-hero p { font-size: 16.5px; line-height: 1.72; }
+:root[data-skin="blueprint"] .dash-hero p strong { color: var(--text-strong); font-weight: 600; }
+:root[data-skin="blueprint"] .dash-hero.is-compact h1 { font-size: 26px; }
+:root[data-skin="blueprint"] .dash-hero-art {
+  border: 1px dashed var(--border-strong); padding: 10px; position: relative; background: var(--viz-bg);
+  background-image: linear-gradient(var(--bp-grid-minor) 1px, transparent 1px), linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px);
+  background-size: 16px 16px; background-position: -1px -1px;
+}
+:root[data-skin="blueprint"] .dash-hero-art::before {
+  content: "Fig. 0 — data flow"; position: absolute; top: -8px; left: 10px; padding: 0 6px; background: var(--bg-2);
+  font: 500 9.5px/16px var(--font-mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-ink);
+}
+:root[data-skin="blueprint"] .hero-svg .hero-log rect { fill: transparent; stroke: var(--viz-c2); stroke-width: 1.25; rx: 0; }
+:root[data-skin="blueprint"] .hero-svg .hero-edge { stroke: var(--accent); stroke-width: 1.25; stroke-dasharray: 4 4; }
+:root[data-skin="blueprint"] .hero-svg .ha-fill { fill: var(--accent); }
+:root[data-skin="blueprint"] .hero-svg .hero-node { stroke-width: 1.5; }
+:root[data-skin="blueprint"] .hero-svg :is(.n1, .n2, .n3) { fill: var(--viz-node); }
+:root[data-skin="blueprint"] .hero-svg .hero-lbl { font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; fill: var(--text-muted); }
+
+/* Buttons */
+:root[data-skin="blueprint"] :is(.btn-primary, .btn-ghost) {
+  border-radius: 0; font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 18px;
+}
+:root[data-skin="blueprint"] .btn-primary { background: var(--accent-strong); color: var(--bp-on-accent); border: 1px solid var(--accent-strong); }
+:root[data-skin="blueprint"] .btn-primary:hover { filter: none; background: var(--accent); border-color: var(--accent); }
+:root[data-skin="blueprint"] body.light .btn-primary:hover { color: #fff; }
+:root[data-skin="blueprint"] .btn-ghost { background: transparent; border: 1px solid var(--border-strong); color: var(--text); }
+:root[data-skin="blueprint"] .btn-ghost:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+:root[data-skin="blueprint"] .btn-sm { font-size: 11.5px; padding: 7px 12px; }
+:root[data-skin="blueprint"] .btn-link { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 0; }
+
+/* Next up */
+:root[data-skin="blueprint"] .next-up { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .next-up-side { background: var(--bp-well); border-left: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .next-up-label { font-size: 10.5px; letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .next-up-title { font-family: var(--font-display); font-size: 23px; font-weight: 600; }
+:root[data-skin="blueprint"] .next-up-progress { font-family: var(--font-mono); font-size: 11.5px; }
+:root[data-skin="blueprint"] .next-up-list li::before { content: "—"; color: var(--accent); }
+:root[data-skin="blueprint"] .practice-link { border-radius: 0; }
+:root[data-skin="blueprint"] .practice-link:hover { background: var(--bg-2); border-color: var(--border-strong); }
+:root[data-skin="blueprint"] .practice-icon { border-radius: 0; background: transparent; border: 1px solid var(--accent); color: var(--accent-ink); font-family: var(--font-mono); font-size: 13px; }
+
+/* Stats */
+:root[data-skin="blueprint"] .dash-stats { gap: 0; border: 1px solid var(--border-strong); background-color: var(--bg-2); overflow: hidden; }
+:root[data-skin="blueprint"] .stat-card { border: 0; background: transparent; padding: 16px 20px 18px; box-shadow: 1px 0 0 var(--border), 0 1px 0 var(--border); }
+:root[data-skin="blueprint"] .stat-label { font-size: 10.5px; letter-spacing: 0.14em; }
+:root[data-skin="blueprint"] .stat-value { font-family: var(--font-mono); font-weight: 500; font-size: 30px; letter-spacing: -0.02em; color: var(--text-strong); }
+:root[data-skin="blueprint"] .stat-value .small { font-size: 15px; }
+:root[data-skin="blueprint"] .stat-bar { margin-top: 12px; }
+
+/* Map of the book */
+:root[data-skin="blueprint"] .dash-h2 { font-size: 24px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; display: flex; align-items: center; gap: 12px; }
+:root[data-skin="blueprint"] .dash-h2::after { content: ""; flex: 1; border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .map-part { font-size: 10.5px; letter-spacing: 0.13em; font-weight: 600; padding: 6px 0 4px; border-bottom: 1px solid currentColor; }
+:root[data-skin="blueprint"] .map-ch {
+  border: 1px solid var(--border-strong); background-color: var(--bg-2); padding: 13px 15px 14px;
+}
+:root[data-skin="blueprint"] .part-1 .map-ch { --tk: var(--viz-c1); border-left: 1px solid var(--border-strong); box-shadow: inset 2px 0 0 var(--viz-c1); }
+:root[data-skin="blueprint"] .part-2 .map-ch { --tk: var(--viz-c2); border-left: 1px solid var(--border-strong); box-shadow: inset 2px 0 0 var(--viz-c2); }
+:root[data-skin="blueprint"] .part-3 .map-ch { --tk: var(--viz-c3); border-left: 1px solid var(--border-strong); box-shadow: inset 2px 0 0 var(--viz-c3); }
+:root[data-skin="blueprint"] .map-ch:hover { transform: none; border-color: var(--accent); }
+:root[data-skin="blueprint"] .map-ch.is-next { border-color: var(--accent); }
+:root[data-skin="blueprint"] .map-ch-num { font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--accent-ink); min-width: 22px; }
+:root[data-skin="blueprint"] .map-ch-num::before { content: "§"; color: var(--text-muted); margin-right: 1px; }
+:root[data-skin="blueprint"] .map-ch-title { font-family: var(--font-display); font-weight: 600; font-size: 16px; line-height: 1.25; }
+:root[data-skin="blueprint"] .map-ch-meta { font-size: 9.5px; letter-spacing: 0.08em; margin-left: 32px; }
+:root[data-skin="blueprint"] .map-ch-tag { margin-left: 32px; }
+:root[data-skin="blueprint"] .map-ch-badge { border-radius: 0; background: var(--accent-strong); color: var(--bp-on-accent); font-size: 9px; }
+:root[data-skin="blueprint"] .dash-howto { border-top: 1px dashed var(--border-strong); }
+
+/* --------------------------------------------------------------------------
+   Gallery, standalone viz, glossary, cheat sheet pages
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] .gallery-h2 { font-size: 19px; font-weight: 600; }
+:root[data-skin="blueprint"] .gallery-h2 .chapter-num { height: 24px; color: var(--accent-ink); border-color: var(--accent); }
+:root[data-skin="blueprint"] .gallery-h2-link { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; }
+:root[data-skin="blueprint"] .gallery-card { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .gallery-card:hover { transform: none; border-color: var(--accent); }
+:root[data-skin="blueprint"] .gallery-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+:root[data-skin="blueprint"] .gallery-play { border-radius: 0; background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+:root[data-skin="blueprint"] .gallery-card:hover .gallery-play { background: var(--accent-strong); color: var(--bp-on-accent); border-color: var(--accent-strong); }
+:root[data-skin="blueprint"] .gallery-sec { border-top: 1px dashed var(--border-strong); font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; padding-top: 8px; }
+:root[data-skin="blueprint"] .viz-try { border-radius: 0; border: 1px solid var(--border); border-left: 2px solid var(--accent-2); background: var(--bg-2); }
+
+:root[data-skin="blueprint"] .glossary-letters { background: var(--bg); gap: 0; border: 1px solid var(--border-strong); padding: 0; }
+:root[data-skin="blueprint"] .glossary-letters a {
+  border-radius: 0; background: transparent; border: 0; border-right: 1px solid var(--border); font-family: var(--font-mono); font-weight: 500; font-size: 12px; padding: 6px 6px;
+}
+:root[data-skin="blueprint"] .glossary-letters a:hover { background: var(--accent-strong); color: var(--bp-on-accent); }
+:root[data-skin="blueprint"] .gl-letter {
+  font-family: var(--font-mono); font-weight: 600; font-size: 20px; color: var(--accent-ink);
+  display: flex; align-items: center; gap: 12px; margin-top: 10px;
+}
+:root[data-skin="blueprint"] .gl-letter::after { content: ""; flex: 1; border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .gl-item { border-radius: 0; border: 1px solid var(--border); background: var(--bg-2); }
+:root[data-skin="blueprint"] .gl-item:hover { border-color: var(--accent); }
+:root[data-skin="blueprint"] .gl-term { font-family: var(--font-display); font-weight: 600; font-size: 16px; color: var(--text-strong); }
+:root[data-skin="blueprint"] .gl-ch { border-radius: 0; font-size: 9.5px; }
+:root[data-skin="blueprint"] .allcs-h2 { font-weight: 600; }
+
+/* Search */
+:root[data-skin="blueprint"] .search-results { border-radius: 0; border: 1px solid var(--border-strong); box-shadow: 4px 4px 0 var(--border); }
+:root[data-skin="blueprint"] .sr-item.is-active { box-shadow: inset 2px 0 0 var(--accent); }
+:root[data-skin="blueprint"] .sr-count { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; font-size: 10.5px; }
+:root[data-skin="blueprint"] .sr-label { letter-spacing: 0.1em; font-size: 10px; }
+
+/* Shared controls */
+:root[data-skin="blueprint"] :is(.tool-filter, .tool-select) { border-radius: 0; background: var(--bp-well); border-color: var(--border-strong); font-family: var(--font-mono); font-size: 13px; }
+:root[data-skin="blueprint"] :is(.tool-filter, .tool-select):focus { box-shadow: 0 0 0 1px var(--accent); }
+:root[data-skin="blueprint"] .tab-tip { font-family: var(--font-mono); font-size: 11.5px; }
+:root[data-skin="blueprint"] .seg { border-radius: 0; padding: 0; gap: 0; background: transparent; border: 1px solid var(--border-strong); }
+:root[data-skin="blueprint"] .seg-btn { border-radius: 0; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+:root[data-skin="blueprint"] .seg-btn + .seg-btn { border-left: 1px solid var(--border); }
+:root[data-skin="blueprint"] .seg-btn.is-active { background: var(--accent-strong); color: var(--bp-on-accent); box-shadow: none; }
+:root[data-skin="blueprint"] .seg-btn.is-active .seg-count { color: inherit; opacity: 0.75; }
+:root[data-skin="blueprint"] .dot { border-radius: 0; transform: rotate(45deg); width: 7px; height: 7px; }
+:root[data-skin="blueprint"] .chip {
+  border-radius: 0; background: transparent; border: 1px solid var(--border-strong);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
+}
+:root[data-skin="blueprint"] .chip:hover { border-color: var(--accent); }
+:root[data-skin="blueprint"] .chip.is-active { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--bp-on-accent); }
+
+/* Quiz mode */
+:root[data-skin="blueprint"] .quiz-setup { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .quiz-setup-go { border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .quiz-chips { gap: 6px; }
+:root[data-skin="blueprint"] .quiz-chip-toggle { border-radius: 0; background: transparent; border: 1px solid var(--border); font-weight: 500; }
+:root[data-skin="blueprint"] .quiz-chip-toggle:hover { border-color: var(--border-strong); }
+:root[data-skin="blueprint"] .quiz-chip-toggle:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+:root[data-skin="blueprint"] .quiz-chip-toggle input { accent-color: var(--accent); border-radius: 0; }
+:root[data-skin="blueprint"] .qct-num { font-family: var(--font-mono); font-weight: 600; color: var(--accent-ink); }
+:root[data-skin="blueprint"] .qct-count { font-family: var(--font-mono); font-size: 11px; }
+:root[data-skin="blueprint"] .quiz-solo { padding-top: 22px; }
+:root[data-skin="blueprint"] .quiz-solo .quiz-chip { font-size: 10.5px; letter-spacing: 0.1em; color: var(--accent-ink); }
+:root[data-skin="blueprint"] .quiz-solo .quiz-q { font-family: var(--font-sans); font-size: 19px; line-height: 1.5; }
+:root[data-skin="blueprint"] .quiz-score { border-radius: 0; }
+:root[data-skin="blueprint"] .quiz-missed li::marker { color: var(--accent); font-family: var(--font-mono); }
+:root[data-skin="blueprint"] .kbd-tip { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Deep dive inline contents (phones) */
+:root[data-skin="blueprint"] .dd-toc-inline { border-radius: 0; border: 1px solid var(--border-strong); background: var(--bg-2); }
+:root[data-skin="blueprint"] .dd-toc-inline summary { font-family: var(--font-mono); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+:root[data-skin="blueprint"] .dd-toc-inline-meta { font-family: var(--font-mono); font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+:root[data-skin="blueprint"] .dd-toc-inline ol { border-top: 1px dashed var(--border-strong); }
+
+/* Misc */
+:root[data-skin="blueprint"] .empty-tab { border: 1px dashed var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .dd-loading { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .skeleton-lines span { border-radius: 0; }
+:root[data-skin="blueprint"] .chapter-footer { border-top: 1px dashed var(--border-strong); }
+:root[data-skin="blueprint"] .nav-btn { border: 1px solid var(--border-strong); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .nav-btn:hover { border-color: var(--accent); background-color: var(--bg-2); }
+:root[data-skin="blueprint"] .nav-btn-label { font-size: 10px; letter-spacing: 0.14em; color: var(--accent-ink); }
+:root[data-skin="blueprint"] .nav-btn { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+:root[data-skin="blueprint"] .toast { border-radius: 0; border: 1px solid var(--accent); font-family: var(--font-mono); font-size: 12.5px; box-shadow: 4px 4px 0 var(--border); }
+:root[data-skin="blueprint"] ::-webkit-scrollbar-thumb { border-radius: 0; background: var(--border-strong); }
+
+/* --------------------------------------------------------------------------
+   Light mode refinements (drafting paper: navy ink, red pencil)
+   -------------------------------------------------------------------------- */
+:root[data-skin="blueprint"] body.light .dd-hook::before,
+:root[data-skin="blueprint"] body.light .quiz:not(.quiz-solo) .quiz-chip { background: var(--bg); }
+:root[data-skin="blueprint"] body.light .viz-chip { background: var(--accent-strong); color: #fff; }
+:root[data-skin="blueprint"] body.light .learn-toggle.on,
+:root[data-skin="blueprint"] body.light .quiz.answered .quiz-opt.is-correct .quiz-letter,
+:root[data-skin="blueprint"] body.light .quiz.answered .quiz-opt.is-wrong .quiz-letter,
+:root[data-skin="blueprint"] body.light .fc-gotit:hover { color: #fff; }
+:root[data-skin="blueprint"] body.light .viz-btn--primary:hover:not(:disabled) { color: #fff; }
+:root[data-skin="blueprint"] body.light .iconbtn:hover { color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1240px) {
+  :root[data-skin="blueprint"] .brand-sub { display: none; }
+}
+@media (max-width: 1180px) {
+  :root[data-skin="blueprint"] .search-box { width: 230px; }
+}
+@media (max-width: 1100px) {
+  :root[data-skin="blueprint"] .dash-hero h1 { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  :root[data-skin="blueprint"] .brand { font-size: 14px; letter-spacing: 0.01em; gap: 9px; }
+  :root[data-skin="blueprint"] .brand .logo::after { display: none; }
+  :root[data-skin="blueprint"] .progress-pill { padding: 5px 8px; font-size: 11px; }
+  :root[data-skin="blueprint"] .progress-pill-bar { width: 40px; }
+  :root[data-skin="blueprint"] .chapter-header h1 { font-size: 30px; }
+  :root[data-skin="blueprint"] .dash-hero { margin: 5px 5px 24px; padding: 24px 20px 40px; }
+  :root[data-skin="blueprint"] .dash-hero h1 { font-size: 31px; }
+  :root[data-skin="blueprint"] .dash-hero.is-compact h1 { font-size: 22px; }
+  :root[data-skin="blueprint"] .dd-section-head { margin-bottom: 18px; }
+  :root[data-skin="blueprint"] .dd-section-num { min-width: 58px; padding: 8px 10px; font-size: 20px; }
+  :root[data-skin="blueprint"] .dd-section-num::before { font-size: 8.5px; }
+  :root[data-skin="blueprint"] .dd-section-head > div:last-child { padding: 10px 12px 11px; }
+  :root[data-skin="blueprint"] .dd-section h2 { font-size: 22px; }
+  :root[data-skin="blueprint"] .dd-hook { padding: 22px 18px 18px; }
+  :root[data-skin="blueprint"] .callout { --cpt: 20px; padding: var(--cpt) 16px 16px; }
+  :root[data-skin="blueprint"] .tab { padding: 10px 12px; font-size: 11px; letter-spacing: 0.05em; }
+  :root[data-skin="blueprint"] .viz-stat-value { font-size: 18px; }
+  :root[data-skin="blueprint"] .viz-stat { padding: 7px 10px 8px; }
+  :root[data-skin="blueprint"] .topbar.search-open .search-wrap { background: var(--bg-2); border-bottom: 1px solid var(--border-strong); box-shadow: none; }
+}
+@media (max-width: 560px) {
+  :root[data-skin="blueprint"] .table-wrap { background-image: none; border: 0; background-color: transparent; }
+  :root[data-skin="blueprint"] .table-wrap tr { border-radius: 0; border: 1px solid var(--border-strong); background: var(--bg-2); }
+  :root[data-skin="blueprint"] .table-wrap td { border-right: 0; border-bottom: 1px dashed var(--border); }
+  :root[data-skin="blueprint"] .table-wrap td::before { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.12em; }
+  :root[data-skin="blueprint"] .table-wrap td:first-child { border-radius: 0; background: var(--bg-3); }
+  :root[data-skin="blueprint"] .quiz-setup-go .seg-btn { flex: 1 1 auto; justify-content: center; }
+  :root[data-skin="blueprint"] .stat-value { font-size: 24px; }
+  :root[data-skin="blueprint"] .dash-hero::after { display: none; }
+  :root[data-skin="blueprint"] .dash-hero { padding-bottom: 24px; }
+  :root[data-skin="blueprint"] .tab { flex: 1 0 auto; padding: 10px 6px; }
+  :root[data-skin="blueprint"] .glossary-letters { border-left: 0; border-right: 0; }
+}
+
+/* Print stays ink-friendly: drop the paper grid and tick marks */
+@media print {
+  :root[data-skin="blueprint"] body { background-image: none !important; }
+  :root[data-skin="blueprint"] * { background-image: none !important; }
+}

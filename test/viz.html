@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viz test harness</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script>
+    (function () {
+      var q = location.search.match(/[?&]skin=([a-z0-9-]+)/);
+      if (q && q[1] !== "classic") {
+        document.documentElement.setAttribute("data-skin", q[1]);
+        document.write('<link rel="stylesheet" href="../skins/' + q[1] + '.css">');
+      }
+    })();
+  </script>
+  <style>
+    body { display: block; padding: 16px; }
+    #stage { margin: 0; }
+    #__result { display: none; }
+  </style>
+</head>
+<body>
+  <!--
+    Test harness for one visualization. Used by scripts/check-viz.sh (headless Chrome).
+    Query params:
+      id=ch5/quorum     viz to mount (required)
+      theme=light       light theme (default dark)
+      width=720         container width in px (default: full)
+      steps=3           click the stepper's "Step" button N times before capture
+      click=1           "monkey" test: click every button, move every slider, toggle every
+                        checkbox and select, to shake out runtime errors
+      wait=1500         ms to wait before writing results
+  -->
+  <div id="stage"></div>
+  <pre id="__result"></pre>
+  <script src="../viz/core.js"></script>
+  <script>
+    (function () {
+      const q = new URLSearchParams(location.search);
+      const id = q.get("id");
+      const errors = (window.__DDIA_ERRORS = []);
+      window.addEventListener("error", e => errors.push({ error: String(e.message), src: (e.filename || "") + ":" + e.lineno }));
+      window.addEventListener("unhandledrejection", e => errors.push({ error: "unhandled rejection: " + (e.reason && (e.reason.stack || e.reason.message) || e.reason) }));
+      const origErr = console.error;
+      console.error = function (...a) { errors.push({ error: "console.error: " + a.map(String).join(" ") }); origErr.apply(console, a); };
+
+      if (q.get("theme") === "light") document.body.classList.add("light");
+      Viz.base = "../viz/";
+      const stage = document.getElementById("stage");
+      if (q.get("width")) stage.style.width = q.get("width") + "px";
+      stage.innerHTML = Viz.frameHTML({ id, title: "", caption: "" });
+      const frame = stage.querySelector("figure.viz");
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+      async function monkey() {
+        const root = frame.querySelector(".viz-body");
+        const seen = new Set();
+        for (let round = 0; round < 2; round++) {
+          const ctrls = Array.from(root.querySelectorAll("button, input, select"));
+          for (const el of ctrls) {
+            if (!el.isConnected || el.disabled) continue;
+            try {
+              if (el.tagName === "BUTTON") { el.click(); }
+              else if (el.type === "range") {
+                const min = +el.min, max = +el.max;
+                for (const v of [max, min, (min + max) / 2]) { el.value = v; el.dispatchEvent(new Event("input", { bubbles: true })); }
+              } else if (el.type === "checkbox") { el.click(); }
+              else if (el.tagName === "SELECT") {
+                for (const o of Array.from(el.options)) { el.value = o.value; el.dispatchEvent(new Event("change", { bubbles: true })); }
+              } else if (el.tagName === "INPUT") {
+                el.value = "42"; el.dispatchEvent(new Event("input", { bubbles: true })); el.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+              seen.add(el);
+            } catch (e) { errors.push({ error: "monkey: " + (e.stack || e.message) }); }
+            await sleep(60);
+          }
+        }
+        return seen.size;
+      }
+
+      function legibility() {
+        // Smallest rendered font size of SVG text (viewBox scaling shrinks text on phones).
+        let min = Infinity, minText = "";
+        frame.querySelectorAll("svg text").forEach(t => {
+          if (!t.textContent.trim()) return;
+          const r = t.getBoundingClientRect();
+          if (!r.width && !r.height) return;
+          const svg = t.ownerSVGElement;
+          const vb = svg && svg.viewBox && svg.viewBox.baseVal;
+          const scale = vb && vb.width ? svg.getBoundingClientRect().width / vb.width : 1;
+          const fs = parseFloat(getComputedStyle(t).fontSize) * scale;
+          if (fs < min) { min = fs; minText = t.textContent.trim().slice(0, 40); }
+        });
+        return { minSvgFontPx: isFinite(min) ? Math.round(min * 10) / 10 : null, minSvgFontText: minText };
+      }
+
+      async function run() {
+        if (!id) { errors.push({ error: "missing ?id=" }); return finish({}); }
+        await Viz.mount(frame);
+        await sleep(+(q.get("wait") || 1200));
+        const steps = +(q.get("steps") || 0);
+        for (let i = 0; i < steps; i++) {
+          const b = Array.from(frame.querySelectorAll(".viz-step-controls button")).find(b => /Step/.test(b.textContent));
+          if (b && !b.disabled) b.click();
+          await sleep(2500);
+        }
+        let clicked = 0;
+        if (q.get("click") === "1") clicked = await monkey();
+        await sleep(800);
+        const body = frame.querySelector(".viz-body");
+        finish({
+          mounted: !!frame._vizInstance,
+          title: (Viz.get(id) || {}).title || null,
+          controls: frame.querySelectorAll(".viz-body button, .viz-body input, .viz-body select").length,
+          clicked,
+          svgCount: frame.querySelectorAll("svg").length,
+          canvasCount: frame.querySelectorAll("canvas").length,
+          bodyHeight: Math.round(body.getBoundingClientRect().height),
+          horizontalOverflow: body.scrollWidth > body.clientWidth + 2 ? body.scrollWidth - body.clientWidth : 0,
+          textLength: body.textContent.length,
+          ...legibility(),
+        });
+      }
+      function finish(info) {
+        const out = { id, ok: errors.length === 0 && info.mounted !== false, errors, ...info };
+        document.getElementById("__result").textContent = JSON.stringify(out);
+        document.title = "DONE";
+      }
+      window.addEventListener("load", run);
+    })();
+  </script>
+</body>
+</html>

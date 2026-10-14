@@ -1,0 +1,1183 @@
+/* =====================================================================
+   Skin: BRUTALIST  (Swiss / neo-brutalist)
+   Off-white paper, pure black ink, 2px rules, hard offset shadows, a wide
+   heavy grotesk, and flat colour blocks that always mean something:
+     yellow = highlight / hover / "you are here"   blue = primary action, links
+     red    = failure                               mint = success / done
+   Dark mode inverts the ink: near-black paper, off-white rules, yellow as the hero.
+   Every rule is scoped under :root[data-skin="brutalist"].
+   ===================================================================== */
+/* Fonts: loaded asynchronously by the loader in index.html (DDIA_LOOKS.fonts), so a slow or
+   blocked Google Fonts never delays first paint; system fallbacks show until they arrive. */
+
+/* ---------------------------------------------------------------------
+   Tokens: dark (default)
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] {
+  --font-sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Archivo", "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-reading: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --round: 0;
+  --radius: 0px;
+
+  /* skin-local */
+  --bw: 2px;
+  --ink: #E9E4D6;          /* rules, borders, outlines */
+  --sh-c: #E9E4D6;         /* hard shadow colour */
+  --hi: #FFD60A;           /* signal yellow */
+  --on-hi: #0B0B0B;
+  --act: #FFD60A;          /* primary action fill (dark: yellow is the hero) */
+  --on-act: #0B0B0B;
+  --link: #9AABFF;
+  --tag-bg: #E9E4D6;       /* inverted labels / active state */
+  --tag-fg: #0B0B0B;
+  --mint: #4BE3A4;
+  --red: #FF5A4E;
+  --sky: #9AABFF;
+  --pink: #FF8AD0;
+  --orange: #FF8B45;
+  --code-bg: #000000;
+  --code-fg: #F2EEE3;
+  --tint: 4%;              /* callout background tint strength */
+  --grid-line: rgba(233, 228, 214, 0.055);
+
+  --bg: #0E0E0E;
+  --bg-2: #171717;
+  --bg-3: #222222;
+  --bg-4: #2E2E2E;
+  --border: #4D4A43;
+  --border-strong: #E9E4D6;
+  --text: #EEEAE0;
+  --text-strong: #FFFFFF;
+  --text-muted: #ABA69A;
+  --accent: #FFD60A;
+  --accent-strong: #FFD60A;
+  --accent-ink: #FFD60A;
+  --accent-2: #9AABFF;
+  --accent-3: #FFB224;
+  --accent-grad-end: #FFD60A;
+  --good: #4BE3A4;
+  --bad: #FF5A4E;
+  --warn: #FFB224;
+  --easy: #4BE3A4;
+  --med: #FFB224;
+  --hard: #FF5A4E;
+  --shadow: 6px 6px 0 #E9E4D6;
+
+  --c-problem: #FF7A45;
+  --c-idea: #FFD60A;
+  --c-analogy: #4FD8EE;
+  --c-insight: #9AABFF;
+  --c-warning: #FFB224;
+  --c-interview: #FF8AD0;
+  --c-history: #D8BC92;
+  --c-modern: #4BE3A4;
+  --c-tip: #B8EE55;
+  --c-mistake: #FF5A4E;
+
+  --viz-bg: #121212;
+  --viz-panel: #1B1B1B;
+  --viz-ink: #F2EEE3;
+  --viz-muted: #ABA69A;
+  --viz-line: #918C80;
+  --viz-grid: #2A2A2A;
+  --viz-node: #1B1B1B;
+  --viz-node-stroke: #D9D4C7;
+  --viz-c1: #B48CFF;
+  --viz-c2: #2EC5FF;
+  --viz-c3: #FFC226;
+  --viz-c4: #4BE3A4;
+  --viz-c5: #FF7AC8;
+  --viz-c6: #7F95FF;
+  --viz-c7: #FF8B45;
+  --viz-c8: #B8EE55;
+  --viz-c1-soft: rgba(180, 140, 255, 0.22);
+  --viz-c2-soft: rgba(46, 197, 255, 0.2);
+  --viz-c3-soft: rgba(255, 194, 38, 0.2);
+  --viz-c4-soft: rgba(75, 227, 164, 0.2);
+  --viz-c5-soft: rgba(255, 122, 200, 0.2);
+  --viz-c6-soft: rgba(127, 149, 255, 0.22);
+  --viz-c7-soft: rgba(255, 139, 69, 0.2);
+  --viz-c8-soft: rgba(184, 238, 85, 0.2);
+  --viz-ok: #4BE3A4;
+  --viz-bad: #FF5A4E;
+  --viz-warn: #FFC226;
+  --viz-info: #7F95FF;
+  --viz-accent: #FFD60A;
+  --viz-ok-soft: rgba(75, 227, 164, 0.2);
+  --viz-bad-soft: rgba(255, 90, 78, 0.2);
+  --viz-warn-soft: rgba(255, 194, 38, 0.2);
+  --viz-info-soft: rgba(127, 149, 255, 0.2);
+  --viz-shadow: rgba(0, 0, 0, 0);
+}
+
+/* ---------------------------------------------------------------------
+   Tokens: light (the hero mode)
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] body.light {
+  --ink: #0B0B0B;
+  --sh-c: #0B0B0B;
+  --act: #1E3BFF;
+  --on-act: #FFFFFF;
+  --link: #1A33E0;
+  --tag-bg: #0B0B0B;
+  --tag-fg: #FFFFFF;
+  --mint: #3DDC97;
+  --red: #FF4A3D;
+  --sky: #8FA8FF;
+  --pink: #FF8AD0;
+  --orange: #FF8B45;
+  --code-bg: #111111;
+  --code-fg: #F2EEE3;
+  --tint: 13%;
+  --grid-line: rgba(11, 11, 11, 0.06);
+
+  --bg: #F4F1E8;
+  --bg-2: #FFFFFF;
+  --bg-3: #ECE8DC;
+  --bg-4: #DFDACB;
+  --border: #0B0B0B;
+  --border-strong: #0B0B0B;
+  --text: #111111;
+  --text-strong: #000000;
+  --text-muted: #57534A;
+  --accent: #1E3BFF;
+  --accent-strong: #1E3BFF;
+  --accent-ink: #1A33E0;
+  --accent-2: #1A33E0;
+  --accent-3: #A35F00;
+  --accent-grad-end: #1E3BFF;
+  --good: #08744A;
+  --bad: #D21F17;
+  --warn: #A35F00;
+  --easy: #08744A;
+  --med: #A35F00;
+  --hard: #D21F17;
+  --shadow: 6px 6px 0 #0B0B0B;
+
+  --c-problem: #FF7A45;
+  --c-idea: #FFD60A;
+  --c-analogy: #4FD8EE;
+  --c-insight: #8FA8FF;
+  --c-warning: #FFB224;
+  --c-interview: #FF8AD0;
+  --c-history: #D8BC92;
+  --c-modern: #3DDC97;
+  --c-tip: #B8EE55;
+  --c-mistake: #FF4A3D;
+
+  --viz-bg: #FFFFFF;
+  --viz-panel: #FFFFFF;
+  --viz-ink: #0B0B0B;
+  --viz-muted: #57534A;
+  --viz-line: #2A2A2A;
+  --viz-grid: #ECE8DC;
+  --viz-node: #FFFFFF;
+  --viz-node-stroke: #0B0B0B;
+  --viz-c1: #6B2CE6;
+  --viz-c2: #0083C4;
+  --viz-c3: #B06A00;
+  --viz-c4: #0A7F3F;
+  --viz-c5: #D01C80;
+  --viz-c6: #1E3BFF;
+  --viz-c7: #D24A00;
+  --viz-c8: #4F7F00;
+  --viz-c1-soft: rgba(140, 82, 255, 0.2);
+  --viz-c2-soft: rgba(0, 176, 240, 0.2);
+  --viz-c3-soft: rgba(255, 196, 0, 0.32);
+  --viz-c4-soft: rgba(30, 214, 135, 0.26);
+  --viz-c5-soft: rgba(255, 70, 170, 0.18);
+  --viz-c6-soft: rgba(30, 59, 255, 0.14);
+  --viz-c7-soft: rgba(255, 120, 40, 0.22);
+  --viz-c8-soft: rgba(150, 215, 20, 0.28);
+  --viz-ok: #0A7F3F;
+  --viz-bad: #D7261E;
+  --viz-warn: #B06A00;
+  --viz-info: #1E3BFF;
+  --viz-accent: #1E3BFF;
+  --viz-ok-soft: rgba(30, 214, 135, 0.26);
+  --viz-bad-soft: rgba(255, 60, 45, 0.18);
+  --viz-warn-soft: rgba(255, 196, 0, 0.32);
+  --viz-info-soft: rgba(30, 59, 255, 0.12);
+  --viz-shadow: #0B0B0B;
+}
+
+/* Composite tokens are declared on body so they resolve with the theme's colours. */
+:root[data-skin="brutalist"] body {
+  --sh-1: 3px 3px 0 var(--sh-c);
+  --sh-2: 4px 4px 0 var(--sh-c);
+  --sh-3: 6px 6px 0 var(--sh-c);
+  --sh-4: 8px 8px 0 var(--sh-c);
+  --press: translate(3px, 3px);
+}
+
+/* ---------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+}
+:root[data-skin="brutalist"] ::selection { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] a:hover { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+:root[data-skin="brutalist"] code,
+:root[data-skin="brutalist"] pre { border-radius: 0; }
+:root[data-skin="brutalist"] code { background: var(--bg-3); padding: 1px 5px; font-size: 0.84em; }
+:root[data-skin="brutalist"] pre {
+  background: var(--code-bg); color: var(--code-fg);
+  border: var(--bw) solid var(--ink); padding: 14px 16px;
+}
+:root[data-skin="brutalist"] pre code { color: inherit; background: none; }
+:root[data-skin="brutalist"] mark { background: var(--hi); color: #0B0B0B; border-radius: 0; }
+:root[data-skin="brutalist"] :focus-visible { outline: 3px solid var(--act); }
+:root[data-skin="brutalist"] .search-box:focus-visible,
+:root[data-skin="brutalist"] .tool-filter:focus-visible { outline: none; }
+:root[data-skin="brutalist"] .skip-link { background: var(--act); color: var(--on-act); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] kbd {
+  font-family: var(--font-mono); background: var(--bg-2); color: var(--text);
+  border: 1.5px solid var(--ink); border-radius: 0; box-shadow: 1.5px 1.5px 0 var(--sh-c); font-size: 10.5px;
+}
+:root[data-skin="brutalist"] .read-bar { background: var(--hi); height: 5px; }
+
+/* Display type: wide + heavy */
+:root[data-skin="brutalist"] h1,
+:root[data-skin="brutalist"] h2,
+:root[data-skin="brutalist"] h3 { font-family: var(--font-display); }
+
+/* ---------------------------------------------------------------------
+   Top bar
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .topbar {
+  background: var(--bg);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  border-bottom: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .brand {
+  font-family: var(--font-display); font-weight: 900; font-stretch: 125%;
+  text-transform: uppercase; letter-spacing: -0.01em; font-size: 17px; color: var(--text-strong);
+}
+:root[data-skin="brutalist"] .brand .logo {
+  background: var(--hi); color: #0B0B0B; border: var(--bw) solid var(--ink); border-radius: 0;
+  box-shadow: 2px 2px 0 var(--sh-c); font-family: var(--font-display); font-weight: 900; font-stretch: 125%; font-size: 15px;
+}
+:root[data-skin="brutalist"] .brand-sub {
+  font-family: var(--font-mono); font-stretch: 100%; font-weight: 400; text-transform: uppercase;
+  letter-spacing: 0.02em; font-size: 10.5px; color: var(--text-muted); margin-left: 6px;
+}
+:root[data-skin="brutalist"] .iconbtn,
+:root[data-skin="brutalist"] .menu-toggle,
+:root[data-skin="brutalist"] .more-toggle,
+:root[data-skin="brutalist"] .search-toggle {
+  background: var(--bg-2); color: var(--text); border: var(--bw) solid var(--ink); border-radius: 0;
+  box-shadow: var(--sh-1); font-weight: 700; font-family: var(--font-sans);
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .iconbtn:hover,
+:root[data-skin="brutalist"] .menu-toggle:hover,
+:root[data-skin="brutalist"] .more-toggle:hover,
+:root[data-skin="brutalist"] .search-toggle:hover {
+  background: var(--hi); color: #0B0B0B; border-color: var(--ink);
+}
+:root[data-skin="brutalist"] .iconbtn:active,
+:root[data-skin="brutalist"] .menu-toggle:active,
+:root[data-skin="brutalist"] .more-toggle:active,
+:root[data-skin="brutalist"] .search-toggle:active { transform: var(--press); box-shadow: none; }
+:root[data-skin="brutalist"] .topbar.search-open .search-toggle { background: var(--tag-bg); color: var(--tag-fg); border-color: var(--ink); }
+:root[data-skin="brutalist"] .more-menu { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3); padding: 4px; }
+:root[data-skin="brutalist"] .more-menu .iconbtn { box-shadow: none; border: 0; }
+:root[data-skin="brutalist"] .more-menu .iconbtn:active { transform: none; }
+
+:root[data-skin="brutalist"] .progress-pill {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0;
+  font-family: var(--font-mono); font-weight: 700; font-size: 12px; box-shadow: var(--sh-1);
+}
+:root[data-skin="brutalist"] .progress-pill-bar { height: 10px; background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; }
+:root[data-skin="brutalist"] .progress-pill-fill { background: var(--hi); }
+
+:root[data-skin="brutalist"] .search-box {
+  background: var(--bg-2); color: var(--text); border: var(--bw) solid var(--ink); border-radius: 0;
+  font-family: var(--font-sans);
+}
+:root[data-skin="brutalist"] .search-box::placeholder { color: var(--text-muted); }
+:root[data-skin="brutalist"] .search-box:focus { border-color: var(--ink); box-shadow: 3px 3px 0 var(--act); }
+:root[data-skin="brutalist"] .search-results { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .sr-item { border-bottom: 1px solid var(--border); }
+:root[data-skin="brutalist"] .sr-item:hover { background: var(--bg-3); }
+:root[data-skin="brutalist"] .sr-item.is-active { background: var(--hi); color: #0B0B0B; box-shadow: none; }
+:root[data-skin="brutalist"] .sr-item.is-active .sr-label,
+:root[data-skin="brutalist"] .sr-item.is-active .sr-snippet { color: #0B0B0B; }
+:root[data-skin="brutalist"] .sr-item.is-active mark { background: #0B0B0B; color: #FFD60A; }
+:root[data-skin="brutalist"] .sr-count { background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono); border-bottom: 0; }
+:root[data-skin="brutalist"] .sr-label { font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.04em; }
+:root[data-skin="brutalist"] .sr-title { font-weight: 700; }
+
+/* ---------------------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .sidebar { background: var(--bg); border-right: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .nav-group { border-bottom: var(--bw) solid var(--ink); padding-bottom: 10px; margin-bottom: 6px; }
+:root[data-skin="brutalist"] .part-header {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--text);
+  padding: 18px 8px 8px;
+}
+:root[data-skin="brutalist"] .chapter-item {
+  border-radius: 0; border: var(--bw) solid transparent; font-weight: 400; font-size: 14px;
+  transition: none;
+}
+:root[data-skin="brutalist"] .chapter-item:hover { background: var(--bg-2); border-color: var(--ink); }
+:root[data-skin="brutalist"] .chapter-item.active {
+  background: var(--tag-bg); color: var(--tag-fg); border-color: var(--ink); box-shadow: 3px 3px 0 var(--hi); font-weight: 700;
+}
+:root[data-skin="brutalist"] .chapter-num {
+  border-radius: 0; background: var(--bg-2); color: var(--text); border: 1.5px solid var(--ink);
+  font-family: var(--font-mono); font-weight: 700; font-size: 11px;
+}
+:root[data-skin="brutalist"] .chapter-item.active .chapter-num { background: var(--hi); color: #0B0B0B; border-color: var(--hi); }
+:root[data-skin="brutalist"] .chapter-ring .bg { stroke: var(--bg-4); }
+:root[data-skin="brutalist"] .chapter-item.active .chapter-ring .bg { stroke: color-mix(in srgb, var(--tag-fg) 30%, transparent); }
+:root[data-skin="brutalist"] .chapter-ring .fg { stroke: var(--good); }
+:root[data-skin="brutalist"] .side-sections { border-left: var(--bw) solid var(--ink); margin-left: 21px; padding-left: 0; margin-top: 6px; }
+:root[data-skin="brutalist"] .side-section { border-radius: 0; color: var(--text-muted); padding: 5px 10px; }
+:root[data-skin="brutalist"] .side-section:hover { background: var(--bg-2); color: var(--text); }
+:root[data-skin="brutalist"] .side-section.current { background: var(--hi); color: #0B0B0B; font-weight: 700; }
+
+/* ---------------------------------------------------------------------
+   Chapter header & tabs
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .chapter-header { border-bottom: var(--bw) solid var(--ink); padding-bottom: 20px; }
+:root[data-skin="brutalist"] .chapter-label {
+  display: inline-block; font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.04em; color: #0B0B0B; background: var(--hi); padding: 3px 8px; line-height: 1.4;
+  border: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .chapter-label a { color: inherit; }
+:root[data-skin="brutalist"] .chapter-header h1 {
+  font-size: 54px; font-weight: 900; font-stretch: 125%; line-height: 1; letter-spacing: -0.035em;
+  margin: 16px 0 12px; color: var(--text-strong); overflow-wrap: break-word;
+}
+:root[data-skin="brutalist"] .chapter-tagline { color: var(--text); font-size: 19px; line-height: 1.5; }
+:root[data-skin="brutalist"] .meta-chip {
+  border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text);
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; padding: 3px 9px;
+}
+:root[data-skin="brutalist"] .meta-progress { font-family: var(--font-mono); font-size: 11.5px; color: var(--text); text-transform: uppercase; }
+:root[data-skin="brutalist"] .meta-progress-bar { height: 12px; background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; }
+:root[data-skin="brutalist"] .meta-progress-bar span { background: var(--hi); }
+:root[data-skin="brutalist"] .overview-details summary { font-family: var(--font-mono); text-transform: uppercase; font-size: 12px; color: var(--text); }
+:root[data-skin="brutalist"] .overview-text { color: var(--text); }
+
+:root[data-skin="brutalist"] .tabs { background: var(--bg); border-bottom: var(--bw) solid var(--ink); gap: 0; padding-top: 8px; }
+:root[data-skin="brutalist"] .tab {
+  border-radius: 0; border: var(--bw) solid var(--ink); border-bottom: 0; margin-right: -2px;
+  color: var(--text); background: var(--bg-2); font-family: var(--font-sans); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.02em; font-size: 13px; min-height: 44px;
+}
+:root[data-skin="brutalist"] .tab:last-child { margin-right: 0; }
+:root[data-skin="brutalist"] .tab:hover { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .tab.active { background: var(--tag-bg); color: var(--tag-fg); border-color: var(--ink); }
+:root[data-skin="brutalist"] .tab-count {
+  border-radius: 0; background: transparent; border: 1.5px solid currentColor; color: inherit;
+  font-family: var(--font-mono); font-size: 10.5px; padding: 0 5px; letter-spacing: 0;
+}
+:root[data-skin="brutalist"] .tab.active .tab-count { background: var(--hi); color: #0B0B0B; border-color: var(--hi); }
+
+/* ---------------------------------------------------------------------
+   Deep dive
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .dd-toc-title { font-family: var(--font-mono); color: var(--text); letter-spacing: 0.06em; }
+:root[data-skin="brutalist"] .toc-link { border-radius: 0; border-left: var(--bw) solid var(--ink); color: var(--text-muted); }
+:root[data-skin="brutalist"] .toc-link:hover { background: var(--bg-2); color: var(--text); }
+:root[data-skin="brutalist"] .toc-link.current { background: var(--hi); color: #0B0B0B; border-left-color: var(--ink); font-weight: 700; }
+:root[data-skin="brutalist"] .toc-link.current .toc-num { color: #0B0B0B; }
+:root[data-skin="brutalist"] .toc-num { font-family: var(--font-mono); }
+
+:root[data-skin="brutalist"] .dd-hook {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3);
+  font-size: 19px; line-height: 1.7; padding: 24px 28px; position: relative; border-left: 12px solid var(--hi);
+}
+:root[data-skin="brutalist"] .dd-section { border-bottom: var(--bw) solid var(--ink); padding-bottom: 36px; margin-bottom: 44px; }
+:root[data-skin="brutalist"] .dd-section-head { gap: 18px; align-items: flex-start; margin-bottom: 26px; }
+:root[data-skin="brutalist"] .dd-section-num {
+  font-family: var(--font-mono); font-size: 18px; font-weight: 700; line-height: 1;
+  color: var(--tag-fg); background: var(--tag-bg); border: var(--bw) solid var(--ink); border-radius: 0;
+  padding: 10px 10px; margin-top: 2px; box-shadow: 4px 4px 0 var(--hi);
+}
+:root[data-skin="brutalist"] .dd-section.is-done .dd-section-num { background: var(--mint); color: #0B0B0B; border-color: var(--ink); box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] .dd-kicker { font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.06em; font-size: 11.5px; }
+:root[data-skin="brutalist"] .dd-section h2 {
+  font-size: 34px; font-weight: 900; font-stretch: 125%; line-height: 1.06; letter-spacing: -0.03em;
+  color: var(--text-strong); margin-top: 4px; overflow-wrap: break-word;
+}
+:root[data-skin="brutalist"] .dd-section > * + * { margin-top: 22px; }
+:root[data-skin="brutalist"] .dd-section > .callout { margin-top: 34px; }
+:root[data-skin="brutalist"] .dd-section > .dd-section-head + .callout { margin-top: 14px; }
+
+:root[data-skin="brutalist"] .dd-text { font-size: 17px; line-height: 1.72; }
+:root[data-skin="brutalist"] .dd-text strong { color: var(--text-strong); font-weight: 700; }
+:root[data-skin="brutalist"] .dd-text h3 {
+  font-size: 22px; font-weight: 800; font-stretch: 125%; letter-spacing: -0.02em; line-height: 1.2; margin: 30px 0 10px;
+}
+:root[data-skin="brutalist"] .dd-text h4 { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
+:root[data-skin="brutalist"] .dd-text a { color: var(--link); text-decoration-color: currentColor; text-decoration-thickness: 1.5px; }
+:root[data-skin="brutalist"] .dd-text ul li::marker { color: var(--text-strong); }
+:root[data-skin="brutalist"] .dd-text .formula,
+:root[data-skin="brutalist"] .formula {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-1);
+  font-family: var(--font-mono); font-size: 15px; font-weight: 700;
+}
+:root[data-skin="brutalist"] .dd-text blockquote { border-left: 8px solid var(--hi); color: var(--text); padding-left: 16px; }
+:root[data-skin="brutalist"] .hl { background: color-mix(in srgb, var(--hi) 70%, transparent); color: inherit; border-radius: 0; }
+:root[data-skin="brutalist"] body:not(.light) .hl { background: color-mix(in srgb, var(--hi) 28%, transparent); }
+:root[data-skin="brutalist"] .hl-good { background: color-mix(in srgb, var(--mint) 40%, transparent); border-radius: 0; }
+:root[data-skin="brutalist"] .hl-bad { background: color-mix(in srgb, var(--red) 32%, transparent); border-radius: 0; }
+:root[data-skin="brutalist"] .hl-warn { background: color-mix(in srgb, var(--hi) 55%, transparent); border-radius: 0; }
+:root[data-skin="brutalist"] body:not(.light) .hl-good,
+:root[data-skin="brutalist"] body:not(.light) .hl-bad,
+:root[data-skin="brutalist"] body:not(.light) .hl-warn { background: none; box-shadow: inset 0 -0.45em 0 color-mix(in srgb, var(--tone-hl, var(--mint)) 35%, transparent); }
+:root[data-skin="brutalist"] body:not(.light) .hl-bad { --tone-hl: var(--red); }
+:root[data-skin="brutalist"] body:not(.light) .hl-warn { --tone-hl: var(--hi); }
+:root[data-skin="brutalist"] .tag { border-radius: 0; border: 1.5px solid var(--ink); background: var(--bg-2); color: var(--text); font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .tag.strong { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+
+:root[data-skin="brutalist"] .dd-block-title {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; color: var(--text); margin-bottom: 14px;
+}
+:root[data-skin="brutalist"] .dd-block-title::before {
+  content: ""; width: 12px; height: 12px; background: var(--hi); border: var(--bw) solid var(--ink); flex-shrink: 0;
+}
+:root[data-skin="brutalist"] .dd-icon { display: none; }
+
+/* Callouts: a flat tinted slab with a coloured label tab sitting on its top rule */
+:root[data-skin="brutalist"] .callout {
+  border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  background: color-mix(in srgb, var(--tone) var(--tint), var(--bg-2));
+  padding: 20px 22px 18px; font-size: 16px; line-height: 1.7;
+}
+:root[data-skin="brutalist"] .callout-head { margin: -35px 0 10px -2px; align-items: flex-start; }
+:root[data-skin="brutalist"] .callout-icon { display: none; }
+:root[data-skin="brutalist"] .callout-label {
+  background: var(--tone); color: #0B0B0B; border: var(--bw) solid var(--ink);
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.35;
+  padding: 3px 9px; box-shadow: 2px 2px 0 var(--sh-c);
+}
+:root[data-skin="brutalist"] .callout-problem .callout-body,
+:root[data-skin="brutalist"] .callout-idea .callout-body { font-size: 17px; }
+
+
+/* Real world */
+:root[data-skin="brutalist"] .rw-grid { gap: 16px; }
+:root[data-skin="brutalist"] .rw-card {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  padding: 16px 18px; font-size: 15px;
+}
+:root[data-skin="brutalist"] .rw-card::before { display: none; }
+:root[data-skin="brutalist"] .rw-org { font-weight: 800; font-stretch: 125%; font-size: 16px; letter-spacing: -0.01em; }
+:root[data-skin="brutalist"] .rw-year { background: var(--tag-bg); color: var(--tag-fg); border: 0; border-radius: 0; font-family: var(--font-mono); font-weight: 700; padding: 1px 6px; }
+:root[data-skin="brutalist"] .rw-tag { border: 1.5px solid var(--ink); border-radius: 0; color: var(--text); font-family: var(--font-mono); padding: 0 6px; }
+:root[data-skin="brutalist"] .rw-title { color: var(--text-strong); font-weight: 700; font-size: 14.5px; margin-top: 6px; }
+
+/* Trade-offs */
+:root[data-skin="brutalist"] .to-grid { gap: 16px; }
+:root[data-skin="brutalist"] .to-col {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  padding: 0 0 12px; font-size: 15px;
+}
+:root[data-skin="brutalist"] .to-head {
+  margin: 0 0 12px; padding: 8px 16px; border-bottom: var(--bw) solid var(--ink);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: #0B0B0B;
+}
+:root[data-skin="brutalist"] .to-col ul { margin: 0 16px 0 34px; }
+:root[data-skin="brutalist"] .to-pros,
+:root[data-skin="brutalist"] .to-cons { border-top: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .to-pros .to-head { background: var(--mint); color: #0B0B0B; }
+:root[data-skin="brutalist"] .to-cons .to-head { background: var(--red); color: #0B0B0B; }
+
+/* Compare */
+:root[data-skin="brutalist"] .cmp-card {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-top: 10px solid var(--tone); border-radius: 0;
+  box-shadow: var(--sh-2);
+}
+:root[data-skin="brutalist"] .cmp-card { --tone: var(--sky); }
+:root[data-skin="brutalist"] .cmp-card.tone-good,
+:root[data-skin="brutalist"] .cmp-card.tone-ok { --tone: var(--mint); }
+:root[data-skin="brutalist"] .cmp-card.tone-bad { --tone: var(--red); }
+:root[data-skin="brutalist"] .cmp-card.tone-warn { --tone: var(--hi); }
+:root[data-skin="brutalist"] .cmp-card.tone-info { --tone: var(--sky); }
+:root[data-skin="brutalist"] .cmp-title { font-weight: 800; font-stretch: 125%; letter-spacing: -0.01em; }
+
+/* Tables */
+:root[data-skin="brutalist"] .table-wrap { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--bg-2); box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] .table-wrap table { font-size: 14px; }
+:root[data-skin="brutalist"] .table-wrap th {
+  background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.03em; border-bottom: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .table-wrap td { border-bottom: 1px solid var(--border); }
+:root[data-skin="brutalist"] .table-wrap td:first-child { font-weight: 700; }
+:root[data-skin="brutalist"] .table-wrap tbody tr:hover td { background: color-mix(in srgb, var(--hi) 14%, transparent); }
+
+/* Code */
+:root[data-skin="brutalist"] .dd-code { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--code-bg); box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] .dd-code-head {
+  background: var(--hi); color: #0B0B0B; border-bottom: var(--bw) solid var(--ink);
+  font-family: var(--font-mono); font-size: 12px;
+}
+:root[data-skin="brutalist"] .dd-code-lang { color: #0B0B0B; }
+:root[data-skin="brutalist"] .dd-code pre { border: 0; color: var(--code-fg); font-size: 13.5px; }
+:root[data-skin="brutalist"] .dd-code-caption { background: var(--bg-2); color: var(--text-muted); border-top: var(--bw) solid var(--ink); }
+
+/* Steps, key points, lists, timeline */
+:root[data-skin="brutalist"] .dd-steps li {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-1);
+  padding: 12px 14px 12px 56px; margin-bottom: 12px;
+}
+:root[data-skin="brutalist"] .dd-steps li::before {
+  border-radius: 0; background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono);
+  width: 28px; height: 28px; left: 12px; top: 11px;
+}
+:root[data-skin="brutalist"] .dd-list li::marker { color: var(--text-strong); }
+:root[data-skin="brutalist"] .dd-keypoints { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); padding: 16px 20px; }
+:root[data-skin="brutalist"] .dd-keypoints li { padding-left: 26px; }
+:root[data-skin="brutalist"] .dd-keypoints li::before {
+  content: ""; width: 10px; height: 10px; top: 0.55em; background: var(--hi); border: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .tl { border-left: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .tl li::before { border-radius: 0; background: var(--hi); border: var(--bw) solid var(--ink); left: -8px; width: 14px; height: 14px; top: 5px; }
+:root[data-skin="brutalist"] .tl-year { font-family: var(--font-mono); color: var(--text-strong); background: var(--bg-3); padding: 0 4px; }
+
+/* Static diagrams: same frame as a visualization */
+:root[data-skin="brutalist"] .dd-diagram {
+  background-color: var(--viz-bg); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+:root[data-skin="brutalist"] .dd-diagram-title {
+  margin: -16px -16px 14px; padding: 9px 14px; background: var(--tag-bg); color: var(--tag-fg);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; border-bottom: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .dd-diagram-body svg rect { rx: 0; ry: 0; }
+:root[data-skin="brutalist"] .dd-diagram figcaption { color: var(--text-muted); border-top: 1.5px dashed var(--border); padding-top: 10px; }
+
+/* Inline quiz */
+:root[data-skin="brutalist"] .quiz { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); padding: 18px 20px; }
+:root[data-skin="brutalist"] .quiz-chip {
+  background: var(--hi); color: #0B0B0B; border: var(--bw) solid var(--ink); padding: 2px 8px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+}
+:root[data-skin="brutalist"] .quiz-q { font-weight: 700; font-size: 17px; line-height: 1.45; color: var(--text-strong); }
+:root[data-skin="brutalist"] .quiz-opts { gap: 10px; }
+:root[data-skin="brutalist"] .quiz-opt {
+  background: var(--bg-2); color: var(--text); border: var(--bw) solid var(--ink); border-radius: 0;
+  box-shadow: var(--sh-1); align-items: center; transition: transform 0.06s; font-size: 15px;
+}
+:root[data-skin="brutalist"] .quiz-opt:hover { border-color: var(--ink); background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .quiz-opt:active { transform: var(--press); box-shadow: none; }
+:root[data-skin="brutalist"] .quiz-letter {
+  display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; min-width: 24px;
+  background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono); font-size: 12px;
+}
+:root[data-skin="brutalist"] .quiz-opt:hover .quiz-letter { background: #0B0B0B; color: #FFFFFF; }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt { opacity: 0.5; box-shadow: none; }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt:hover { background: var(--bg-2); color: var(--text); }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt:active { transform: none; }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt.is-correct { opacity: 1; background: var(--mint); color: #0B0B0B; border-color: var(--ink); box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt.is-wrong { opacity: 1; background: var(--red); color: #0B0B0B; border-color: var(--ink); box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt.is-correct .quiz-letter,
+:root[data-skin="brutalist"] .quiz.answered .quiz-opt.is-wrong .quiz-letter { background: #0B0B0B; color: #FFFFFF; }
+:root[data-skin="brutalist"] .quiz-explain { background: var(--bg-2); border: var(--bw) solid var(--ink); border-left-width: 10px; border-radius: 0; }
+:root[data-skin="brutalist"] .quiz-explain.tone-ok { border-left: 10px solid var(--mint); }
+:root[data-skin="brutalist"] .quiz-explain.tone-bad { border-left: 10px solid var(--red); }
+:root[data-skin="brutalist"] .quiz-retry { color: var(--link); font-weight: 700; }
+
+:root[data-skin="brutalist"] .quiz-setup { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .quiz-setup-go { border-top: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .quiz-chip-toggle {
+  background: transparent; border: var(--bw) dashed var(--text-muted); border-radius: 0; color: var(--text-muted);
+}
+:root[data-skin="brutalist"] .quiz-chip-toggle:hover { border-color: var(--ink); border-style: solid; background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .quiz-chip-toggle:hover .qct-num,
+:root[data-skin="brutalist"] .quiz-chip-toggle:hover .qct-count { color: #0B0B0B; }
+:root[data-skin="brutalist"] .quiz-chip-toggle:has(input:checked) { background: var(--bg-2); color: var(--text); border: var(--bw) solid var(--ink); box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .quiz-chip-toggle:has(input:checked):hover { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .quiz-chip-toggle input { accent-color: var(--act); }
+:root[data-skin="brutalist"] .qct-num { font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .qct-count { font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .quiz-missed li { border-bottom: 1px solid var(--border); }
+
+/* Loading skeleton */
+:root[data-skin="brutalist"] .dd-loading { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--bg-2); }
+:root[data-skin="brutalist"] .skeleton-lines span { border-radius: 0; }
+
+/* Section footer */
+:root[data-skin="brutalist"] .chips-label { font-family: var(--font-mono); color: var(--text); }
+:root[data-skin="brutalist"] .concept-chip {
+  border-radius: 0; border: 1.5px solid var(--ink); background: var(--bg-2); color: var(--text); font-weight: 600;
+}
+:root[data-skin="brutalist"] .concept-chip:hover { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .section-done-btn,
+:root[data-skin="brutalist"] .review-btn {
+  border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text);
+  box-shadow: var(--sh-2); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 13px;
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .section-done-btn:hover,
+:root[data-skin="brutalist"] .review-btn:hover { border-color: var(--ink); background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .section-done-btn:active,
+:root[data-skin="brutalist"] .review-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+:root[data-skin="brutalist"] .section-done-btn.on,
+:root[data-skin="brutalist"] .review-btn.on { background: var(--mint); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .takeaway-list { margin-left: 34px; }
+:root[data-skin="brutalist"] .takeaway-list li::marker { color: var(--text-strong); font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .conn-card { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .conn-card:hover { border-color: var(--ink); background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .conn-card:hover .conn-ch { color: #0B0B0B; }
+:root[data-skin="brutalist"] .conn-ch { font-family: var(--font-mono); color: var(--text-strong); }
+@keyframes bruFlash { 0%, 50% { outline: 4px solid var(--hi); outline-offset: 4px; } 100% { outline: 4px solid transparent; outline-offset: 4px; } }
+:root[data-skin="brutalist"] .flash-target { animation: bruFlash 1.6s ease; }
+
+/* ---------------------------------------------------------------------
+   Visualization frame & UI kit
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .viz {
+  background: var(--viz-bg); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3);
+}
+:root[data-skin="brutalist"] .viz-head { background: var(--tag-bg); color: var(--tag-fg); border-bottom: var(--bw) solid var(--ink); padding: 8px 10px 8px 12px; }
+:root[data-skin="brutalist"] .viz-chip {
+  background: var(--hi); color: #0B0B0B; border: 0; border-radius: 0;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; padding: 2px 7px;
+}
+:root[data-skin="brutalist"] .viz-title { font-weight: 800; font-size: 15px; color: var(--tag-fg); }
+:root[data-skin="brutalist"] .viz-icon-btn { color: var(--tag-fg); border-radius: 0; border: 1.5px solid transparent; }
+:root[data-skin="brutalist"] .viz-icon-btn:hover { background: var(--hi); color: #0B0B0B; border-color: var(--hi); }
+:root[data-skin="brutalist"] .viz-body {
+  background-color: var(--viz-bg);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+:root[data-skin="brutalist"] .viz-caption { border-top: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text); font-size: 14px; }
+:root[data-skin="brutalist"] .viz-error { border: var(--bw) dashed var(--bad); border-radius: 0; }
+:root[data-skin="brutalist"] .viz--expanded { box-shadow: 10px 10px 0 var(--sh-c); }
+:root[data-skin="brutalist"] .viz-skeleton { border-radius: 0; }
+
+:root[data-skin="brutalist"] .viz-svg .viz-halo,
+:root[data-skin="brutalist"] .dd-diagram .viz-halo { stroke-width: 4px; }
+:root[data-skin="brutalist"] .viz-svg rect { rx: 0; ry: 0; }
+/* Nodes and boxes get a hard offset shadow, cast by their opaque underlay (so it never shows
+   through a translucent fill). */
+:root[data-skin="brutalist"] .viz-svg g > circle:first-child:has(+ circle),
+:root[data-skin="brutalist"] .viz-svg g > rect:first-child:has(+ rect) {
+  filter: drop-shadow(3px 3px 0 var(--viz-shadow));
+}
+
+:root[data-skin="brutalist"] .viz-btn {
+  font-family: var(--font-sans); font-weight: 700; border-radius: 0; border: var(--bw) solid var(--ink);
+  background: var(--bg-2); color: var(--text); box-shadow: var(--sh-1); padding: 7px 12px;
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .viz-btn:hover:not(:disabled) { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn:active:not(:disabled) { transform: var(--press); box-shadow: none; }
+:root[data-skin="brutalist"] .viz-btn:disabled { opacity: 0.4; box-shadow: none; }
+:root[data-skin="brutalist"] .viz-btn.is-active { background: var(--tag-bg); color: var(--tag-fg); border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--primary { background: var(--act); color: var(--on-act); border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--primary:hover:not(:disabled) { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--ghost { background: transparent; box-shadow: none; border-style: dashed; color: var(--text); border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--ghost:hover:not(:disabled) { background: var(--bg-3); color: var(--text); border-style: solid; border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--danger { background: var(--bg-2); color: var(--bad); border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--danger:hover:not(:disabled) { background: var(--red); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--ok { background: var(--bg-2); color: var(--good); border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-btn--ok:hover:not(:disabled) { background: var(--mint); color: #0B0B0B; border-color: var(--ink); }
+
+:root[data-skin="brutalist"] .viz-slider { color: var(--text); font-size: 13px; }
+:root[data-skin="brutalist"] .viz-slider-label { font-weight: 800; }
+:root[data-skin="brutalist"] .viz-slider-val {
+  font-family: var(--font-mono); font-weight: 700; border: var(--bw) solid var(--ink); border-radius: 0;
+  background: var(--bg-2); color: var(--text-strong);
+}
+:root[data-skin="brutalist"] .viz-slider input[type=range],
+:root[data-skin="brutalist"] .tool-slider input[type=range] {
+  -webkit-appearance: none; appearance: none; height: 24px; background: transparent; cursor: pointer;
+}
+:root[data-skin="brutalist"] .viz-slider input[type=range]::-webkit-slider-runnable-track {
+  height: 8px; background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0;
+}
+:root[data-skin="brutalist"] .viz-slider input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 24px; margin-top: -10px;
+  background: var(--act); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: 2px 2px 0 var(--sh-c);
+}
+:root[data-skin="brutalist"] .viz-slider input[type=range]:active::-webkit-slider-thumb { background: var(--hi); }
+:root[data-skin="brutalist"] .viz-slider input[type=range]::-moz-range-track { height: 4px; background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; }
+:root[data-skin="brutalist"] .viz-slider input[type=range]::-moz-range-thumb {
+  width: 12px; height: 20px; background: var(--act); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: 2px 2px 0 var(--sh-c);
+}
+:root[data-skin="brutalist"] .viz-slider input[type=range]:disabled { opacity: 0.45; }
+
+:root[data-skin="brutalist"] .viz-toggle,
+:root[data-skin="brutalist"] .tool-switch { font-weight: 700; }
+:root[data-skin="brutalist"] .viz-toggle-track,
+:root[data-skin="brutalist"] .tool-switch-track {
+  width: 40px; height: 22px; border-radius: 0; background: var(--bg-2); border: var(--bw) solid var(--ink);
+}
+:root[data-skin="brutalist"] .viz-toggle-track::after,
+:root[data-skin="brutalist"] .tool-switch-track::after {
+  top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 0; background: var(--ink);
+}
+:root[data-skin="brutalist"] .viz-toggle input:checked + .viz-toggle-track,
+:root[data-skin="brutalist"] .tool-switch input:checked + .tool-switch-track { background: var(--act); }
+:root[data-skin="brutalist"] .viz-toggle input:checked + .viz-toggle-track::after,
+:root[data-skin="brutalist"] .tool-switch input:checked + .tool-switch-track::after {
+  transform: translateX(18px); background: var(--on-act); box-shadow: 0 0 0 2px var(--ink);
+}
+:root[data-skin="brutalist"] .viz-toggle input:focus-visible + .viz-toggle-track,
+:root[data-skin="brutalist"] .tool-switch input:focus-visible + .tool-switch-track { outline: 3px solid var(--act); }
+
+:root[data-skin="brutalist"] .viz-select { font-weight: 700; }
+:root[data-skin="brutalist"] .viz-select select,
+:root[data-skin="brutalist"] .tool-select,
+:root[data-skin="brutalist"] .tool-filter {
+  border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text); font-family: var(--font-sans);
+}
+:root[data-skin="brutalist"] .tool-filter:focus,
+:root[data-skin="brutalist"] .tool-select:focus { border-color: var(--ink); box-shadow: 3px 3px 0 var(--act); }
+
+:root[data-skin="brutalist"] .viz-seg-label { font-weight: 800; }
+:root[data-skin="brutalist"] .viz-seg,
+:root[data-skin="brutalist"] .seg { border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); padding: 0; gap: 0; box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .viz-seg-btn,
+:root[data-skin="brutalist"] .seg-btn {
+  border-radius: 0; color: var(--text); font-weight: 700; padding: 6px 11px;
+}
+:root[data-skin="brutalist"] .viz-seg-btn + .viz-seg-btn,
+:root[data-skin="brutalist"] .seg-btn + .seg-btn { box-shadow: inset 2px 0 0 var(--ink); }
+:root[data-skin="brutalist"] .viz-seg-btn:hover,
+:root[data-skin="brutalist"] .seg-btn:hover { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .viz-seg-btn.is-active,
+:root[data-skin="brutalist"] .seg-btn.is-active { background: var(--tag-bg); color: var(--tag-fg); box-shadow: none; }
+:root[data-skin="brutalist"] .seg-btn.is-active .seg-count { color: var(--tag-fg); }
+:root[data-skin="brutalist"] .seg-count { font-family: var(--font-mono); color: inherit; opacity: 0.8; }
+
+:root[data-skin="brutalist"] .viz-stats { gap: 10px; }
+:root[data-skin="brutalist"] .viz-stat { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; padding: 8px 10px 9px; }
+:root[data-skin="brutalist"] .viz-stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--text-muted); }
+:root[data-skin="brutalist"] .viz-stat-value { font-weight: 800; font-size: 20px; color: var(--text-strong); }
+:root[data-skin="brutalist"] .viz-stat.tone-ok { border-color: var(--ink); box-shadow: inset 0 6px 0 var(--viz-ok); padding-top: 12px; }
+:root[data-skin="brutalist"] .viz-stat.tone-bad { border-color: var(--ink); box-shadow: inset 0 6px 0 var(--viz-bad); padding-top: 12px; }
+:root[data-skin="brutalist"] .viz-stat.tone-warn { border-color: var(--ink); box-shadow: inset 0 6px 0 var(--viz-warn); padding-top: 12px; }
+:root[data-skin="brutalist"] .viz-stat.tone-info { border-color: var(--ink); box-shadow: inset 0 6px 0 var(--viz-info); padding-top: 12px; }
+
+:root[data-skin="brutalist"] .viz-log { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--bg-2); }
+:root[data-skin="brutalist"] .viz-log-title { background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono); border-bottom: 0; letter-spacing: 0.03em; }
+:root[data-skin="brutalist"] .viz-log-row { border-left-width: 4px; }
+
+:root[data-skin="brutalist"] .viz-note {
+  border: var(--bw) solid var(--ink); border-left: 10px solid var(--viz-info); border-radius: 0;
+  background: var(--bg-2); font-size: 14.5px; color: var(--text);
+}
+:root[data-skin="brutalist"] .viz-note.tone-ok { border-left-color: var(--viz-ok); background: color-mix(in srgb, var(--mint) var(--tint), var(--bg-2)); }
+:root[data-skin="brutalist"] .viz-note.tone-bad { border-left-color: var(--viz-bad); background: color-mix(in srgb, var(--red) var(--tint), var(--bg-2)); }
+:root[data-skin="brutalist"] .viz-note.tone-warn { border-left-color: var(--viz-warn); background: color-mix(in srgb, var(--hi) var(--tint), var(--bg-2)); }
+:root[data-skin="brutalist"] .viz-note.tone-info { border-left-color: var(--viz-info); }
+
+:root[data-skin="brutalist"] .viz-legend { color: var(--text); font-size: 12.5px; font-weight: 600; }
+:root[data-skin="brutalist"] .viz-legend-swatch { width: 12px; height: 12px; border: 1.5px solid var(--ink); }
+:root[data-skin="brutalist"] .viz-legend-swatch.shape-square { border-radius: 0; }
+:root[data-skin="brutalist"] .viz-legend-swatch.shape-line { height: 6px; width: 18px; border-radius: 0; }
+:root[data-skin="brutalist"] .viz-legend-swatch.shape-dash { border: 0; border-top: 3px dashed var(--sw); height: 0; width: 18px; }
+
+:root[data-skin="brutalist"] .viz-panel { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; }
+:root[data-skin="brutalist"] .viz-panel-title { font-family: var(--font-mono); color: var(--text); letter-spacing: 0.03em; }
+:root[data-skin="brutalist"] .viz-badge-pill {
+  border-radius: 0; border: 1.5px solid var(--ink); font-family: var(--font-mono); font-size: 10.5px;
+  background: var(--bg-2); color: var(--text);
+}
+:root[data-skin="brutalist"] .viz-badge-pill.tone-ok { border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-badge-pill.tone-bad { border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-badge-pill.tone-warn { border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-badge-pill.tone-info { border-color: var(--ink); }
+:root[data-skin="brutalist"] .viz-badge-pill.tone-accent { border-color: var(--ink); }
+
+:root[data-skin="brutalist"] .viz-stepper { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--bg-2); box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .viz-step-counter { font-family: var(--font-mono); color: var(--text); font-weight: 700; }
+:root[data-skin="brutalist"] .viz-step-num { border-radius: 0; background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .viz-step-title { font-weight: 700; }
+
+/* ---------------------------------------------------------------------
+   Concepts
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .concepts-grid { gap: 20px; }
+:root[data-skin="brutalist"] .concept-card {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .concept-card:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .concept-card.learned { background: color-mix(in srgb, var(--mint) var(--tint), var(--bg-2)); border-color: var(--ink); }
+:root[data-skin="brutalist"] .concept-term { color: var(--text-strong); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+:root[data-skin="brutalist"] .concept-def { font-size: 15px; }
+:root[data-skin="brutalist"] .concept-problem,
+:root[data-skin="brutalist"] .concept-why,
+:root[data-skin="brutalist"] .concept-example { color: var(--text); border-top: 1.5px dashed var(--border); font-size: 14px; }
+:root[data-skin="brutalist"] .concept-problem::before,
+:root[data-skin="brutalist"] .concept-why::before,
+:root[data-skin="brutalist"] .concept-example::before {
+  display: inline-block; font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.02em;
+  color: #0B0B0B; padding: 0 5px; margin-right: 6px; line-height: 1.6; border: 1.5px solid var(--ink);
+}
+:root[data-skin="brutalist"] .concept-problem::before { background: var(--c-problem); }
+:root[data-skin="brutalist"] .concept-why::before { background: var(--hi); }
+:root[data-skin="brutalist"] .concept-example::before { background: var(--sky); }
+:root[data-skin="brutalist"] .concept-deeplink { font-weight: 700; }
+:root[data-skin="brutalist"] .learn-toggle { border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--good); box-shadow: 2px 2px 0 var(--sh-c); }
+:root[data-skin="brutalist"] .learn-toggle::after { border-radius: 0; }
+:root[data-skin="brutalist"] .learn-toggle:hover { border-color: var(--ink); background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .learn-toggle.on { background: var(--mint); border-color: var(--ink); color: #0B0B0B; }
+
+/* ---------------------------------------------------------------------
+   Cheatsheet
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .cheatsheet-block { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] .cheatsheet-block h3 { color: var(--text-strong); font-weight: 900; font-stretch: 125%; letter-spacing: -0.02em; font-size: 18px; }
+:root[data-skin="brutalist"] .cheatsheet-block .table-wrap { border: var(--bw) solid var(--ink); box-shadow: none; }
+:root[data-skin="brutalist"] .cs-note { color: var(--text-muted); }
+
+/* ---------------------------------------------------------------------
+   Interview Q&A
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .qa-item {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  margin-bottom: 16px; overflow: visible;
+}
+:root[data-skin="brutalist"] .qa-item.reviewed { border-color: var(--ink); box-shadow: inset 10px 0 0 var(--mint), var(--sh-2); }
+:root[data-skin="brutalist"] .qa-header:hover { background: var(--bg-3); }
+:root[data-skin="brutalist"] .qa-item.open .qa-header { background: var(--bg-3); }
+:root[data-skin="brutalist"] .qa-q { font-weight: 700; font-size: 15.5px; }
+:root[data-skin="brutalist"] .diff-badge {
+  border-radius: 0; border: 1.5px solid var(--ink); color: #0B0B0B; font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.02em;
+}
+:root[data-skin="brutalist"] .diff-easy { background: var(--mint); color: #0B0B0B; }
+:root[data-skin="brutalist"] .diff-med { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .diff-hard { background: var(--red); color: #0B0B0B; }
+:root[data-skin="brutalist"] .dot { border-radius: 0; border: 1.5px solid var(--ink); width: 10px; height: 10px; }
+:root[data-skin="brutalist"] .dot-easy { background: var(--mint); } :root[data-skin="brutalist"] .dot-med { background: var(--hi); } :root[data-skin="brutalist"] .dot-hard { background: var(--red); }
+:root[data-skin="brutalist"] .qa-done { color: var(--good); }
+:root[data-skin="brutalist"] .qa-chevron::before,
+:root[data-skin="brutalist"] .dd-toc-inline summary::after { border-color: var(--text-strong); border-width: 0 2.5px 2.5px 0; }
+:root[data-skin="brutalist"] .qa-body-inner { border-top: var(--bw) solid var(--ink); font-size: 15px; }
+:root[data-skin="brutalist"] .qa-sub { font-family: var(--font-mono); font-size: 11px; display: inline-block; padding: 1px 6px; color: #0B0B0B; }
+:root[data-skin="brutalist"] .qa-followups .qa-sub { background: var(--sky); color: #0B0B0B; }
+:root[data-skin="brutalist"] .qa-pitfalls .qa-sub { background: var(--red); color: #0B0B0B; }
+:root[data-skin="brutalist"] .qa-footer { border-top: 1px solid var(--border); }
+:root[data-skin="brutalist"] .qa-deeplink { font-weight: 700; }
+
+/* ---------------------------------------------------------------------
+   Flashcards
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .fc-top { font-family: var(--font-mono); font-size: 12px; }
+:root[data-skin="brutalist"] .fc-face { border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-4); background: var(--bg-2); }
+:root[data-skin="brutalist"] .fc-front { background: var(--bg-2); border-color: var(--ink); }
+:root[data-skin="brutalist"] .fc-back { background: var(--bg-2); border-color: var(--ink); }
+:root[data-skin="brutalist"] .fc-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: #0B0B0B; background: var(--hi);
+  padding: 2px 8px; border: 1.5px solid var(--ink);
+}
+:root[data-skin="brutalist"] .fc-back .fc-label { background: var(--sky); }
+:root[data-skin="brutalist"] .fc-known-badge { color: inherit; }
+:root[data-skin="brutalist"] .fc-front .fc-content { font-family: var(--font-display); font-weight: 800; font-stretch: 125%; font-size: 23px; line-height: 1.25; letter-spacing: -0.02em; }
+:root[data-skin="brutalist"] .fc-hint { font-family: var(--font-mono); font-size: 11px; }
+:root[data-skin="brutalist"] .fc-gotit { color: var(--text); }
+:root[data-skin="brutalist"] .fc-gotit:hover { background: var(--mint); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .fc-gotit.on { background: var(--mint); color: #0B0B0B; }
+:root[data-skin="brutalist"] .fc-counter { font-family: var(--font-mono); color: var(--text); }
+
+/* ---------------------------------------------------------------------
+   Dashboard
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .dash-hero {
+  background: var(--hi); color: #0B0B0B; border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-4);
+  padding: 38px 40px; gap: 32px;
+}
+:root[data-skin="brutalist"] .dash-hero .chapter-label { background: #0B0B0B; color: var(--hi); border-color: #0B0B0B; }
+:root[data-skin="brutalist"] .dash-hero h1 {
+  font-size: 58px; font-weight: 900; font-stretch: 125%; line-height: 0.98; letter-spacing: -0.04em;
+  color: #0B0B0B; margin: 18px 0 18px; overflow-wrap: break-word;
+}
+:root[data-skin="brutalist"] .dash-hero p { color: #1A1A1A; font-size: 17px; line-height: 1.6; }
+:root[data-skin="brutalist"] .dash-hero p strong { color: #000; font-weight: 800; }
+:root[data-skin="brutalist"] .dash-hero .btn-primary { background: #0B0B0B; color: #FFFFFF; border-color: #0B0B0B; box-shadow: 4px 4px 0 #FFFFFF, 4px 4px 0 2px #0B0B0B; }
+:root[data-skin="brutalist"] .dash-hero .btn-ghost { background: #FFFFFF; color: #0B0B0B; border-color: #0B0B0B; box-shadow: 4px 4px 0 #0B0B0B; }
+:root[data-skin="brutalist"] .dash-hero .btn-primary:hover,
+:root[data-skin="brutalist"] .dash-hero .btn-ghost:hover { background: var(--act); color: var(--on-act); }
+:root[data-skin="brutalist"] body:not(.light) .dash-hero .btn-primary:hover,
+:root[data-skin="brutalist"] body:not(.light) .dash-hero .btn-ghost:hover { background: #FFFFFF; color: #0B0B0B; }
+:root[data-skin="brutalist"] .dash-hero kbd { color: #0B0B0B; background: #FFFFFF; }
+
+/* The log's entries flip between white and black (no in-between greys). */
+:root[data-skin="brutalist"] .hero-svg .hero-log rect { fill: #FFFFFF; stroke: #0B0B0B; stroke-width: 2; rx: 0; animation-name: bruBlink; animation-timing-function: steps(1, end); }
+:root[data-skin="brutalist"] .hero-svg .hero-edge { stroke: #0B0B0B; stroke-width: 2.5; stroke-dasharray: 6 5; }
+:root[data-skin="brutalist"] .hero-svg .ha-fill { fill: #0B0B0B; }
+:root[data-skin="brutalist"] .hero-svg .hero-node { stroke: #0B0B0B; stroke-width: 2.5; filter: drop-shadow(2px 2px 0 #0B0B0B); }
+:root[data-skin="brutalist"] .hero-svg .n1 { fill: #1E3BFF; stroke: #0B0B0B; }
+:root[data-skin="brutalist"] .hero-svg .n2 { fill: #3DDC97; stroke: #0B0B0B; }
+:root[data-skin="brutalist"] .hero-svg .n3 { fill: #FF4A3D; stroke: #0B0B0B; }
+:root[data-skin="brutalist"] .hero-svg .hero-lbl { fill: #0B0B0B; font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; }
+@keyframes bruBlink { 0% { fill: #FFFFFF; } 50% { fill: #0B0B0B; } 100% { fill: #FFFFFF; } }
+
+:root[data-skin="brutalist"] .btn-primary,
+:root[data-skin="brutalist"] .btn-ghost {
+  border-radius: 0; border: var(--bw) solid var(--ink); font-weight: 800; font-family: var(--font-sans);
+  text-transform: uppercase; letter-spacing: 0.02em; font-size: 13.5px; box-shadow: var(--sh-2);
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .btn-primary { background: var(--act); color: var(--on-act); }
+:root[data-skin="brutalist"] .btn-primary:hover { filter: none; background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .btn-ghost { background: var(--bg-2); color: var(--text); }
+:root[data-skin="brutalist"] .btn-ghost:hover { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .btn-primary:active,
+:root[data-skin="brutalist"] .btn-ghost:active { transform: translate(4px, 4px); box-shadow: none !important; }
+:root[data-skin="brutalist"] .btn-primary:disabled { opacity: 0.45; box-shadow: none; }
+:root[data-skin="brutalist"] .btn-sm { font-size: 12px; }
+:root[data-skin="brutalist"] .btn-link { color: var(--link); font-weight: 700; border-radius: 0; }
+
+:root[data-skin="brutalist"] .next-up { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .next-up-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--text); }
+:root[data-skin="brutalist"] .next-up-main > .next-up-label { display: inline-block; background: var(--tag-bg); color: var(--tag-fg); padding: 2px 8px; }
+:root[data-skin="brutalist"] .next-up-title { font-family: var(--font-display); font-weight: 900; font-stretch: 125%; font-size: 26px; letter-spacing: -0.03em; line-height: 1.1; margin: 12px 0 6px; }
+:root[data-skin="brutalist"] .next-up-title a { color: var(--text-strong); }
+:root[data-skin="brutalist"] .next-up-meta { color: var(--text-muted); }
+:root[data-skin="brutalist"] .next-up-progress { font-family: var(--font-mono); font-size: 11.5px; color: var(--text); }
+:root[data-skin="brutalist"] .next-up-then { font-family: var(--font-mono); color: var(--text); }
+:root[data-skin="brutalist"] .next-up-list li::before { content: ""; width: 8px; height: 8px; background: var(--hi); border: 1.5px solid var(--ink); top: 0.62em; }
+:root[data-skin="brutalist"] .next-up-list a { color: var(--text); }
+:root[data-skin="brutalist"] .next-up-side { border-left: var(--bw) solid var(--ink); background: var(--bg-3); }
+:root[data-skin="brutalist"] .practice-link { border-radius: 0; border: var(--bw) solid transparent; color: var(--text); }
+:root[data-skin="brutalist"] .practice-link:hover { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .practice-link:hover small { color: #0B0B0B; }
+:root[data-skin="brutalist"] .practice-icon { border-radius: 0; border: var(--bw) solid var(--ink); color: #0B0B0B; background: var(--sky); font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .practice-link:nth-of-type(1) .practice-icon { background: var(--pink); }
+:root[data-skin="brutalist"] .practice-link:nth-of-type(2) .practice-icon { background: var(--sky); }
+:root[data-skin="brutalist"] .practice-link:nth-of-type(3) .practice-icon { background: var(--mint); }
+
+:root[data-skin="brutalist"] .dash-stats { gap: 18px; }
+:root[data-skin="brutalist"] .stat-card { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); padding: 16px 18px 18px; }
+:root[data-skin="brutalist"] .stat-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.03em; color: var(--text); }
+:root[data-skin="brutalist"] .stat-value { font-family: var(--font-display); font-weight: 900; font-stretch: 125%; font-size: 40px; line-height: 1.05; letter-spacing: -0.03em; margin-top: 8px; }
+:root[data-skin="brutalist"] .stat-value .small { font-family: var(--font-mono); font-stretch: 100%; font-size: 14px; letter-spacing: 0; font-weight: 700; color: var(--text-muted); }
+:root[data-skin="brutalist"] .stat-bar { height: 12px; background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; margin-top: 12px; }
+:root[data-skin="brutalist"] .stat-bar span { background: var(--hi); }
+:root[data-skin="brutalist"] .stat-overall { background: var(--tag-bg); color: var(--tag-fg); }
+:root[data-skin="brutalist"] .stat-overall .stat-label { color: var(--tag-fg); }
+:root[data-skin="brutalist"] .stat-overall .stat-bar { border-color: var(--tag-fg); background: var(--tag-bg); }
+
+:root[data-skin="brutalist"] .dash-h2,
+:root[data-skin="brutalist"] .gallery-h2,
+:root[data-skin="brutalist"] .allcs-h2 { font-weight: 900; font-stretch: 125%; letter-spacing: -0.03em; }
+:root[data-skin="brutalist"] .dash-h2 { font-size: 30px; line-height: 1.1; margin-bottom: 8px; text-transform: uppercase; }
+:root[data-skin="brutalist"] .dash-sub { color: var(--text); font-size: 15.5px; margin-bottom: 20px; }
+:root[data-skin="brutalist"] .book-map { gap: 22px; }
+:root[data-skin="brutalist"] .map-col { gap: 14px; }
+:root[data-skin="brutalist"] .map-part {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: #0B0B0B !important;
+  padding: 6px 10px; border: var(--bw) solid var(--ink); background: var(--sky);
+}
+:root[data-skin="brutalist"] .part-1 .map-part { background: var(--sky); }
+:root[data-skin="brutalist"] .part-2 .map-part { background: var(--pink); }
+:root[data-skin="brutalist"] .part-3 .map-part { background: var(--orange); }
+:root[data-skin="brutalist"] .map-ch,
+:root[data-skin="brutalist"] .part-1 .map-ch,
+:root[data-skin="brutalist"] .part-2 .map-ch,
+:root[data-skin="brutalist"] .part-3 .map-ch {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .map-ch:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .map-ch.is-next { border-color: var(--ink); box-shadow: 6px 6px 0 var(--hi), 6px 6px 0 2px var(--ink); }
+:root[data-skin="brutalist"] body.light .map-ch.is-next { background: color-mix(in srgb, var(--hi) 12%, var(--bg-2)); }
+:root[data-skin="brutalist"] .map-ch-num {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px;
+  font-family: var(--font-mono); font-size: 12px; color: #0B0B0B; border: var(--bw) solid var(--ink); background: var(--sky);
+}
+:root[data-skin="brutalist"] .part-2 .map-ch-num { background: var(--pink); }
+:root[data-skin="brutalist"] .part-3 .map-ch-num { background: var(--orange); }
+:root[data-skin="brutalist"] .map-ch-top .map-ch-num { margin-top: -2px; }
+:root[data-skin="brutalist"] .map-ch-title { font-weight: 800; font-size: 15px; }
+:root[data-skin="brutalist"] .map-ch-tag { color: var(--text-muted); margin-left: 36px; }
+:root[data-skin="brutalist"] .map-ch-meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); margin-left: 36px; }
+:root[data-skin="brutalist"] .map-ch-badge { background: var(--hi); color: #0B0B0B; border: 1.5px solid var(--ink); border-radius: 0; font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .dash-howto { border-top: var(--bw) solid var(--ink); color: var(--text); }
+
+/* ---------------------------------------------------------------------
+   Gallery, standalone viz, glossary, printable cheat sheet
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .gallery-h2 { font-size: 20px; }
+:root[data-skin="brutalist"] .gallery-h2 .chapter-num { width: 28px; height: 28px; }
+:root[data-skin="brutalist"] .gallery-grid { gap: 16px; }
+:root[data-skin="brutalist"] .gallery-card {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .gallery-card:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: var(--sh-3); }
+:root[data-skin="brutalist"] .gallery-title { font-weight: 800; }
+:root[data-skin="brutalist"] .gallery-play { border-radius: 0; background: var(--act); color: var(--on-act); border: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .gallery-card:hover .gallery-play { background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .gallery-cap { color: var(--text-muted); }
+:root[data-skin="brutalist"] .gallery-sec { font-family: var(--font-mono); font-size: 11px; border-top: 1.5px dashed var(--border); color: var(--text); }
+:root[data-skin="brutalist"] .crumb-count { font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .viz-try { background: var(--bg-2); border: var(--bw) solid var(--ink); border-left: 10px solid var(--hi); border-radius: 0; }
+:root[data-skin="brutalist"] .viz-try-label { font-family: var(--font-mono); color: var(--text-strong); }
+
+:root[data-skin="brutalist"] .glossary-letters { background: var(--bg); gap: 6px; }
+:root[data-skin="brutalist"] .glossary-letters a {
+  border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text);
+  font-family: var(--font-mono); box-shadow: 2px 2px 0 var(--sh-c);
+}
+:root[data-skin="brutalist"] .glossary-letters a:hover { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .glossary-letters a.is-empty { opacity: 0.3; box-shadow: none; }
+:root[data-skin="brutalist"] .gl-group { gap: 12px; }
+:root[data-skin="brutalist"] .gl-letter {
+  font-size: 44px; font-weight: 900; font-stretch: 125%; color: var(--text-strong); line-height: 1;
+  border-bottom: var(--bw) solid var(--ink); padding-bottom: 6px; margin-top: 14px;
+}
+:root[data-skin="brutalist"] .gl-item { border: var(--bw) solid var(--ink); border-radius: 0; background: var(--bg-2); box-shadow: var(--sh-1); }
+:root[data-skin="brutalist"] .gl-item:hover { border-color: var(--ink); background: color-mix(in srgb, var(--hi) 22%, var(--bg-2)); }
+:root[data-skin="brutalist"] .gl-term { color: var(--text-strong); font-weight: 800; }
+:root[data-skin="brutalist"] .gl-ch { border-radius: 0; border: 1.5px solid var(--ink); font-family: var(--font-mono); color: var(--text); font-size: 10px; }
+:root[data-skin="brutalist"] .gl-def { color: var(--text-muted); }
+:root[data-skin="brutalist"] .glossary-count { font-family: var(--font-mono); }
+:root[data-skin="brutalist"] .allcs-h2 { font-size: 22px; }
+
+/* ---------------------------------------------------------------------
+   Shared controls
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .tab-tip { color: var(--text-muted); }
+:root[data-skin="brutalist"] .chip {
+  border-radius: 0; border: var(--bw) solid var(--ink); background: var(--bg-2); color: var(--text); font-weight: 700;
+}
+:root[data-skin="brutalist"] .chip:hover { background: var(--hi); color: #0B0B0B; border-color: var(--ink); }
+:root[data-skin="brutalist"] .chip.is-active { background: var(--tag-bg); color: var(--tag-fg); border-color: var(--ink); box-shadow: 3px 3px 0 var(--hi); }
+:root[data-skin="brutalist"] .chip-count { font-family: var(--font-mono); font-size: 10.5px; }
+
+:root[data-skin="brutalist"] .dd-toc-inline { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); }
+:root[data-skin="brutalist"] .dd-toc-inline summary { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 0.02em; }
+:root[data-skin="brutalist"] .dd-toc-inline-meta { font-family: var(--font-mono); text-transform: none; font-size: 11px; }
+:root[data-skin="brutalist"] .dd-toc-inline ol { border-top: var(--bw) solid var(--ink); }
+
+/* ---------------------------------------------------------------------
+   Misc
+   --------------------------------------------------------------------- */
+:root[data-skin="brutalist"] .empty-tab { border: var(--bw) dashed var(--ink); border-radius: 0; color: var(--text); }
+:root[data-skin="brutalist"] .chapter-footer { border-top: var(--bw) solid var(--ink); }
+:root[data-skin="brutalist"] .nav-btn {
+  background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2);
+  font-weight: 800; font-size: 15px; transition: transform 0.06s;
+}
+:root[data-skin="brutalist"] .nav-btn:hover { border-color: var(--ink); background: var(--hi); color: #0B0B0B; }
+:root[data-skin="brutalist"] .nav-btn:hover .nav-btn-label { color: #0B0B0B; }
+:root[data-skin="brutalist"] .nav-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+:root[data-skin="brutalist"] .nav-btn-label { font-family: var(--font-mono); font-weight: 700; color: var(--text-muted); }
+:root[data-skin="brutalist"] .toast { background: var(--hi); color: #0B0B0B; border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-2); font-weight: 700; }
+:root[data-skin="brutalist"] ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 0; }
+:root[data-skin="brutalist"] ::-webkit-scrollbar-thumb:hover { background: var(--hi); }
+:root[data-skin="brutalist"] body.viz-expanded-open::after { background: rgba(10, 10, 10, 0.72); }
+
+/* ---------------------------------------------------------------------
+   Responsive (re-stating sizes the base sheet changes at each breakpoint)
+   --------------------------------------------------------------------- */
+@media (max-width: 1440px) {
+  :root[data-skin="brutalist"] .brand-sub { display: none; }
+  :root[data-skin="brutalist"] .search-box { width: 300px; }
+}
+@media (max-width: 1180px) {
+  :root[data-skin="brutalist"] .search-box { width: 230px; }
+}
+@media (max-width: 1100px) {
+  :root[data-skin="brutalist"] .dash-hero h1 { font-size: 50px; }
+}
+@media (max-width: 1000px) {
+  :root[data-skin="brutalist"] .next-up-side { border-left: 0; border-top: var(--bw) solid var(--ink); }
+}
+@media (max-width: 900px) {
+  :root[data-skin="brutalist"] .sidebar { border-right: var(--bw) solid var(--ink); box-shadow: 6px 0 0 var(--sh-c); }
+}
+@media (max-width: 768px) {
+  :root[data-skin="brutalist"] .topbar.search-open .search-wrap { background: var(--bg); border-bottom: var(--bw) solid var(--ink); box-shadow: none; }
+  :root[data-skin="brutalist"] .search-results { box-shadow: var(--sh-2); }
+  :root[data-skin="brutalist"] .brand { font-size: 15px; }
+  :root[data-skin="brutalist"] .brand .logo { width: 30px; height: 30px; }
+  :root[data-skin="brutalist"] .progress-pill { box-shadow: none; padding: 5px 8px; }
+  :root[data-skin="brutalist"] .progress-pill-bar { display: none; }
+  :root[data-skin="brutalist"] .chapter-header h1 { font-size: 36px; margin-top: 12px; }
+  :root[data-skin="brutalist"] .chapter-tagline { font-size: 16.5px; }
+  :root[data-skin="brutalist"] .tab { font-size: 12px; padding: 10px 12px; }
+  :root[data-skin="brutalist"] .dash-hero { padding: 24px 22px; box-shadow: var(--sh-3); }
+  :root[data-skin="brutalist"] .dash-hero h1 { font-size: 36px; }
+  :root[data-skin="brutalist"] .dash-hero.is-compact h1 { font-size: 24px; }
+  :root[data-skin="brutalist"] .dd-hook { font-size: 17px; padding: 18px 18px 18px 18px; border-left-width: 8px; box-shadow: var(--sh-2); }
+  :root[data-skin="brutalist"] .dd-section h2 { font-size: 25px; }
+  :root[data-skin="brutalist"] .dd-section-num { font-size: 15px; padding: 8px 7px; }
+  :root[data-skin="brutalist"] .dd-text { font-size: 16.5px; }
+  :root[data-skin="brutalist"] .dd-text h3 { font-size: 19px; }
+  :root[data-skin="brutalist"] .callout { padding: 18px 16px 16px; }
+  :root[data-skin="brutalist"] .viz { box-shadow: var(--sh-2); }
+  :root[data-skin="brutalist"] .viz-head { padding: 4px 4px 4px 10px; }
+  :root[data-skin="brutalist"] .stat-value { font-size: 30px; }
+  :root[data-skin="brutalist"] .next-up-title { font-size: 21px; }
+  :root[data-skin="brutalist"] .gl-letter { font-size: 34px; }
+  :root[data-skin="brutalist"] .fc-front .fc-content { font-size: 20px; }
+}
+@media (max-width: 560px) {
+  :root[data-skin="brutalist"] .table-wrap { border: 0; background: transparent; box-shadow: none; }
+  :root[data-skin="brutalist"] .table-wrap tr { background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: var(--sh-1); padding: 0 12px 6px; }
+  :root[data-skin="brutalist"] .table-wrap td { border-bottom: 1.5px dashed var(--border); }
+  :root[data-skin="brutalist"] .table-wrap tbody tr:hover td { background: none; }
+  :root[data-skin="brutalist"] .table-wrap td:first-child {
+    background: var(--tag-bg); color: var(--tag-fg); border-radius: 0; margin: 0 -12px 8px; padding: 8px 12px; border-bottom: 0;
+    width: auto;
+  }
+  :root[data-skin="brutalist"] .table-wrap tr td:last-child { border-bottom: 0; }
+  :root[data-skin="brutalist"] .table-wrap td:first-child::before { color: var(--tag-fg); opacity: 0.75; }
+  :root[data-skin="brutalist"] .table-wrap td::before { color: var(--text-muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.02em; }
+  :root[data-skin="brutalist"] .cheatsheet-block .table-wrap { border: 0; }
+  :root[data-skin="brutalist"] .cheatsheet-block .table-wrap tr { background: var(--bg-2); }
+  :root[data-skin="brutalist"] .stat-value { font-size: 26px; }
+  :root[data-skin="brutalist"] .stats-3 .stat-value { font-size: 24px; }
+  :root[data-skin="brutalist"] .dash-stats { gap: 12px; }
+  :root[data-skin="brutalist"] .tab { margin-right: -2px; padding: 10px 3px; font-size: 11.5px; letter-spacing: 0; }
+  :root[data-skin="brutalist"] .tab:last-child { margin-right: 0; }
+  :root[data-skin="brutalist"] .seg { display: flex; }
+  :root[data-skin="brutalist"] .quiz-setup-go .seg-btn,
+:root[data-skin="brutalist"] .tab-toolbar .seg-btn { flex: 1 1 auto; justify-content: center; }
+  :root[data-skin="brutalist"] .dash-hero h1 { font-size: 31px; }
+  :root[data-skin="brutalist"] .chapter-header h1 { font-size: 32px; }
+}
+@media (max-width: 380px) {
+  :root[data-skin="brutalist"] .chapter-header h1 { font-size: 28px; }
+  :root[data-skin="brutalist"] .dash-hero h1 { font-size: 27px; }
+  :root[data-skin="brutalist"] .dd-section h2 { font-size: 22px; }
+  :root[data-skin="brutalist"] .tab { font-size: 11px; padding: 10px 2px; text-transform: none; }
+}
+
+/* ---------------------------------------------------------------------
+   Print: ink-friendly light palette whatever the screen theme (backgrounds don't print,
+   so inverted labels become plain black text).
+   --------------------------------------------------------------------- */
+@media print {
+  :root[data-skin="brutalist"],
+:root[data-skin="brutalist"] body,
+:root[data-skin="brutalist"] body.light {
+    --ink: #000; --sh-c: transparent; --tag-bg: #fff; --tag-fg: #000; --hi: #fff; --act: #fff; --on-act: #000;
+    --code-bg: #fff; --code-fg: #111; --tint: 0%; --link: #111; --mint: #fff; --red: #fff; --sky: #fff;
+    --bg: #fff; --bg-2: #fff; --bg-3: #f3f4f6; --bg-4: #e5e7eb; --border: #bbb; --border-strong: #000;
+    --text: #111; --text-strong: #000; --text-muted: #444;
+    --accent: #000; --accent-strong: #000; --accent-ink: #000; --accent-2: #111; --accent-3: #444;
+    --good: #047857; --bad: #b91c1c; --warn: #92400e; --shadow: none;
+  }
+  :root[data-skin="brutalist"] .dash-hero .chapter-label { color: #000; }
+  :root[data-skin="brutalist"] .chapter-header h1 { font-size: 17pt; margin: 2pt 0; }
+  :root[data-skin="brutalist"] .chapter-tagline { font-size: 9pt; }
+  :root[data-skin="brutalist"] .chapter-label { border-width: 1pt; font-size: 7.5pt; }
+  :root[data-skin="brutalist"] .table-wrap table { font-size: 8pt; }
+  :root[data-skin="brutalist"] .table-wrap th { font-size: 7pt; }
+  :root[data-skin="brutalist"] .cheatsheet-block h3 { font-size: 9.5pt; }
+  :root[data-skin="brutalist"] .allcs-h2 { font-size: 12.5pt; }
+}
